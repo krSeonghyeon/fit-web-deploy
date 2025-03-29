@@ -5,5 +5,13 @@
     box-shadow: 0 4px 12px rgba(127, 90, 240, 0.3); /* 자연스러운 그림자 */
     letter-spacing: 0.5px;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
+    
+    display: flex; /* 수평 정렬 */
+    justify-content: center; /* 텍스트와 아이콘을 가로로 가운데 정렬 */
+    align-items: center; /* 텍스트와 아이콘을 세로로 가운데 정렬 */
+  }
+  
+  .action-button .mr-2 {
+    margin-right: 8px; /* 아이콘과 텍스트 간격 */
   }
   

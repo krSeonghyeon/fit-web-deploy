@@ -1,0 +1,33 @@
+.upload-row {
+    @apply flex flex-row items-start gap-4 w-full;
+  }
+  
+  .upload-left-col {
+    @apply flex flex-col items-center gap-4;
+  }
+  
+  .upload-box {
+    @apply w-[160px] h-[160px] bg-gray-50 rounded-xl p-4 shadow-sm flex flex-col items-center justify-center text-center flex-shrink-0;
+  }
+  
+  .upload-icon {
+    @apply mb-2 text-rose-500;
+  }
+  
+  .upload-label {
+    @apply text-sm font-medium text-gray-800;
+  }
+  
+  .upload-subtext {
+    @apply text-xs text-gray-500;
+  }
+  
+  .upload-slider-wrapper {
+    @apply flex-1 overflow-hidden flex flex-col gap-24;
+  }
+  
+  .upload-box-swap-button {
+    @apply flex items-center justify-center gap-1 text-sm text-gray-400 hover:text-rose-500 
+           cursor-pointer border border-gray-300 rounded-full px-3 py-1;
+  }  
+  

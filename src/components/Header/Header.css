@@ -1,5 +1,5 @@
 .header {
-    @apply py-4 px-4 flex justify-center;
+    @apply py-4 px-4 flex justify-center bg-white; /* 배경을 하얀색으로 설정 */
   }
   
   .header-inner {
@@ -7,7 +7,13 @@
   }
   
   .header-text {
-    @apply font-bold text-gray-800 text-center;
+    @apply font-bold text-gray-800 text-center; /* 글자 색 기본 설정 */
     font-size: 14px;
+    display: inline-flex; /* 아이콘과 텍스트 한 줄로 정렬 */
+    align-items: center; /* 아이콘과 텍스트 세로 중앙 정렬 */
+  }
+  
+  .header-text .mr-0 {
+    margin-right: 0; /* 아이콘 앞뒤 공백 없애기 */
   }
   

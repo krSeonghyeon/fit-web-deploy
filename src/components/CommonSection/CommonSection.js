@@ -6,7 +6,7 @@ const CommonUploadSection = () => (
   <div className="common-upload-container">
     <div className="common-upload-box">
       <div className="upload-icon"><IoBody size={40} /></div>
-      <p className="upload-label flex items-center gap-2 text-lg">
+      <p className="upload-label flex items-center gap-2 text-lg mb-2">
         <PiUploadSimpleBold size={18} className="text-rose-500" />
         내 사진 선택
       </p>

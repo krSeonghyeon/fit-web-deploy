@@ -1,5 +1,7 @@
 .bottom-nav {
-    @apply absolute bottom-0 left-0 right-0 bg-gray-50 border-t border-gray-100;
+    @apply absolute bottom-0 left-0 right-0 bg-gray-200 border-t border-gray-100;
+    border-top-left-radius: 16px; /* 위 왼쪽만 둥글게 */
+    border-top-right-radius: 16px; /* 위 오른쪽만 둥글게 */
   }
   
   .nav-container {
@@ -23,7 +25,7 @@
     @apply text-[10px] text-white leading-none;
   }
   
-  
   .nav-label {
     @apply text-xs text-gray-500 mt-1;
   }
+  

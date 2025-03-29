@@ -12,7 +12,7 @@ const OnePieceSection = () => {
           <GiDress size={40} />
         </div>
         <p className="onepiece-upload-label">
-          <PiUploadSimpleBold size={18} className="text-rose-500" />원피스 사진 선택
+          <PiUploadSimpleBold size={18} className="text-rose-500 mb-2" />원피스 사진 선택
         </p>
         <p className="onepiece-upload-subtext">원피스 사진을 업로드해주세요</p>
       </div>

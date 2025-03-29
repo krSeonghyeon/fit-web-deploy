@@ -1,7 +1,7 @@
 // UploadSection.js
 import './UploadSection.css';
-import { FaTshirt } from 'react-icons/fa';
-import { PiPants, PiUploadSimpleBold } from 'react-icons/pi';
+import { FaTshirt} from 'react-icons/fa';
+import { PiPants, PiUploadSimpleBold} from 'react-icons/pi';
 import RecentPreviewSlider from '../RecentPreviewSlider/RecentPreviewSlider';
 
 const UploadSection = () => (
@@ -9,7 +9,7 @@ const UploadSection = () => (
     <div className="upload-row">
       <div className="upload-box">
         <div className="upload-icon"><FaTshirt size={24} /></div>
-        <p className="upload-label flex items-center gap-1">
+        <p className="upload-label flex items-center gap-1 mb-2">
           <PiUploadSimpleBold size={16} className="text-rose-500" />사진 선택
         </p>
         <p className="upload-subtext mt-1">상의 사진을 선택하세요</p>
@@ -22,7 +22,7 @@ const UploadSection = () => (
     <div className="upload-row">
       <div className="upload-box">
         <div className="upload-icon"><PiPants size={24} /></div>
-        <p className="upload-label flex items-center gap-1">
+        <p className="upload-label flex items-center gap-1 mb-2">
           <PiUploadSimpleBold size={16} className="text-rose-500" />사진 선택
         </p>
         <p className="upload-subtext mt-1">하의 사진을 선택하세요</p>
