@@ -1,0 +1,13 @@
+.header {
+    @apply py-4 px-4 flex justify-center;
+  }
+  
+  .header-inner {
+    @apply flex items-center justify-center w-full;
+  }
+  
+  .header-text {
+    @apply font-bold text-gray-800 text-center;
+    font-size: 14px;
+  }
+  

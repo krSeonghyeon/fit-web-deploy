@@ -1,0 +1,19 @@
+.extra-options {
+    @apply mb-4;
+  }
+  
+  .extra-line {
+    @apply flex justify-between items-center py-2;
+  }
+  
+  .extra-icon-text {
+    @apply flex items-center;
+  }
+  
+  .extra-icon {
+    @apply w-6 h-6 mr-2 text-rose-500;
+  }
+  
+  .extra-label {
+    @apply text-sm font-medium text-gray-800;
+  }

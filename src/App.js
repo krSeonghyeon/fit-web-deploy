@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import './components/AppWrapper/AppWrapper.css';
+import Header from './components/Header/Header';
+import UploadSection from './components/UploadSection/UploadSection';
+import CategorySelector from './components/CategorySelector/CategorySelector';
+import ExtraOptions from './components/ExtraOptions/ExtraOptions';
+import ActionButton from './components/ActionButton/ActionButton';
+import BottomNav from './components/BottomNav/BottomNav';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app-container">
+      <div className="card">
+        <Header />
+        <div className="scrollable-content main-padding">
+          <UploadSection />
+          <CategorySelector />
+          <ExtraOptions />
+          <ActionButton /> {/* ActionButton을 스크롤 영역 안에 배치 */}
+        </div>
+        <BottomNav />
+      </div>
     </div>
   );
 }
