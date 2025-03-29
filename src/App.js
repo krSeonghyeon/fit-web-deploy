@@ -1,5 +1,6 @@
 import './components/AppWrapper/AppWrapper.css';
 import Header from './components/Header/Header';
+import CommonSection from './components/CommonSection/CommonSection';
 import UploadSection from './components/UploadSection/UploadSection';
 import CategorySelector from './components/CategorySelector/CategorySelector';
 import ExtraOptions from './components/ExtraOptions/ExtraOptions';
@@ -12,7 +13,7 @@ function App() {
       <div className="card">
         <Header />
         <div className="scrollable-content main-padding">
-          <UploadSection />
+          <CommonSection />
           <CategorySelector />
           <ExtraOptions />
           <ActionButton /> {/* ActionButton을 스크롤 영역 안에 배치 */}
