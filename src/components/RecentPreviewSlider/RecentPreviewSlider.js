@@ -7,7 +7,7 @@ const RecentPreviewSlider = ({ type }) => {
       <div className="recent-scroll-container">
         {[...Array(8)].map((_, i) => (
           <div key={i} className="recent-circle">
-            <img src="/default-avatar.png" className="recent-img" />
+            <img src="/옷.png" className="recent-img" />
           </div>
         ))}
       </div>

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import './components/AppWrapper/AppWrapper.css';
 import Header from './components/Header/Header';
 import CommonSection from './components/CommonSection/CommonSection';
@@ -10,13 +11,28 @@ import ActionButton from './components/ActionButton/ActionButton';
 import BottomNav from './components/BottomNav/BottomNav';
 
 function App() {
+  const [mode, setMode] = useState('common'); // 초기 상태
+
+  const renderSection = () => {
+    switch (mode) {
+      case 'topBottom':
+        return <UploadSection />;
+      case 'onePiece':
+        return <OnePieceSection />;
+      case 'layered':
+        return <LayeredSection />;
+      default:
+        return <CommonSection />;
+    }
+  };
+
   return (
     <div className="app-container">
       <div className="card">
         <Header />
         <div className="scrollable-content main-padding">
-          <LayeredSection />
-          <CategorySelector />
+          {renderSection()}
+          <CategorySelector mode={mode} setMode={setMode} />
           <ExtraOptions />
           <ActionButton />
         </div>

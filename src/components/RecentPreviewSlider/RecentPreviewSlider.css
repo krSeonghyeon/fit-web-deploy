@@ -3,15 +3,15 @@
   }
   
   .recent-circle {
-    @apply min-w-[100px] min-h-[100px] rounded-full bg-gray-200 flex-shrink-0 flex items-center justify-center overflow-hidden;
-  } 
-
+    @apply w-[100px] h-[100px] rounded-full bg-gray-200 flex-shrink-0 flex items-center justify-center overflow-hidden;
+  }
+  
   .recent-preview-title {
     @apply text-xs font-semibold text-gray-600 mb-3 ml-1;
-  }  
+  }
   
   .recent-img {
-    @apply w-full h-full object-cover;
+    @apply w-full h-full object-cover; /* 원형을 덮도록 이미지를 자르기 */
   }
   
   .recent-scroll-container::-webkit-scrollbar {
