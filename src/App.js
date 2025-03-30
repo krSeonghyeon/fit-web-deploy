@@ -1,3 +1,4 @@
+// ✅ App.js
 import { useState } from 'react';
 import './components/AppWrapper/AppWrapper.css';
 import Header from './components/Header/Header';
@@ -11,18 +12,34 @@ import ActionButton from './components/ActionButton/ActionButton';
 import BottomNav from './components/BottomNav/BottomNav';
 
 function App() {
-  const [mode, setMode] = useState('common'); // 초기 상태
+  const [mode, setMode] = useState('common');
+
+  const [bodyImage, setBodyImage] = useState(null);
+  const [topImage, setTopImage] = useState(null);
+  const [bottomImage, setBottomImage] = useState(null);
+  const [onePieceImage, setOnePieceImage] = useState(null);
+  const [outerImage, setOuterImage] = useState(null);
+  const [innerImage, setInnerImage] = useState(null);
+
+  const handleModeChange = (newMode) => {
+    setMode(newMode);
+    setTopImage(null);
+    setBottomImage(null);
+    setOnePieceImage(null);
+    setOuterImage(null);
+    setInnerImage(null);
+  };
 
   const renderSection = () => {
     switch (mode) {
       case 'topBottom':
-        return <UploadSection />;
+        return <UploadSection topImage={topImage} setTopImage={setTopImage} bottomImage={bottomImage} setBottomImage={setBottomImage} />;
       case 'onePiece':
-        return <OnePieceSection />;
+        return <OnePieceSection onePieceImage={onePieceImage} setOnePieceImage={setOnePieceImage} />;
       case 'layered':
-        return <LayeredSection />;
+        return <LayeredSection outerImage={outerImage} setOuterImage={setOuterImage} innerImage={innerImage} setInnerImage={setInnerImage} />;
       default:
-        return <CommonSection />;
+        return <CommonSection imageUrl={bodyImage} onUpload={setBodyImage} />;
     }
   };
 
@@ -32,9 +49,17 @@ function App() {
         <Header />
         <div className="scrollable-content main-padding">
           {renderSection()}
-          <CategorySelector mode={mode} setMode={setMode} />
+          <CategorySelector mode={mode} setMode={handleModeChange} />
           <ExtraOptions />
-          <ActionButton />
+          <ActionButton
+            mode={mode}
+            bodyImage={bodyImage}
+            topImage={topImage}
+            bottomImage={bottomImage}
+            onePieceImage={onePieceImage}
+            outerImage={outerImage}
+            innerImage={innerImage}
+          />
         </div>
         <BottomNav />
       </div>
