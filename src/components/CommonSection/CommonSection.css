@@ -1,9 +1,9 @@
 .common-upload-container {
-  @apply flex items-center justify-center pb-4;
+  @apply flex flex-col items-center gap-4;
 }
 
 .common-upload-box {
-  @apply w-[280px] h-[280px] bg-gray-50 rounded-xl p-4 shadow-sm flex flex-col items-center justify-center text-center flex-shrink-0 cursor-pointer transition relative;
+  @apply w-[240px] h-[240px] bg-gray-50 rounded-xl p-4 shadow-sm flex flex-col items-center justify-center text-center flex-shrink-0;
 }
 
 .common-upload-icon {
@@ -16,4 +16,8 @@
 
 .common-upload-subtext {
   @apply text-sm text-gray-500 mt-2;
+}
+
+.common-slider-wrapper {
+  @apply w-full max-w-md mx-auto mb-6;
 }

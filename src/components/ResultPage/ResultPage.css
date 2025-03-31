@@ -1,0 +1,54 @@
+/* ResultPage.css */
+.result-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  .result-back {
+    @apply bg-rose-500 text-white px-4 py-2 rounded mb-4;
+  }
+  
+  .result-image-wrapper {
+    @apply w-full max-w-sm;
+  }
+  
+  .result-image {
+    width: 100%;
+    border-radius: 1rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  }
+  
+  .loading-screen {
+    @apply flex flex-col items-center justify-center h-screen;
+  }
+  
+  .spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid #e0e0e0;
+    border-top: 4px solid #7f5af0;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .cancel-button {
+    background-color: transparent;
+    border: none;
+    color: #f43f5e; /* tailwind 기준 rose-500 */
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+  
+  

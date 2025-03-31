@@ -8,7 +8,10 @@ const ActionButton = ({
   bottomImage,
   onePieceImage,
   outerImage,
-  innerImage
+  innerImage,
+  setLoading,
+  setResultImage,
+  setCancelRequested // ✅ 이름 통일
 }) => {
   const handleClick = async () => {
     console.log('🪄 버튼 클릭됨');
@@ -18,12 +21,16 @@ const ActionButton = ({
       return;
     }
 
+    setCancelRequested(false); // ✅ 취소 초기화
+    setLoading(true);
+
     try {
       let response;
 
       if (mode === 'onePiece') {
         if (!onePieceImage) {
           alert('원피스 사진을 업로드해주세요!');
+          setLoading(false);
           return;
         }
 
@@ -36,26 +43,31 @@ const ActionButton = ({
           })
         });
       } else {
-        if (!topImage || !bottomImage) {
-          alert('상의와 하의 사진을 업로드해주세요!');
+        if (!topImage && !bottomImage) {
+          alert('최소한 하나의 의류(상의 또는 하의)를 업로드해주세요!');
+          setLoading(false);
           return;
         }
+
+        const body = {
+          model_url: bodyImage,
+          upper_url: topImage || null,
+          lower_url: bottomImage || null
+        };
 
         response = await fetch('http://localhost:8000/sum', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            model_url: bodyImage,
-            upper_url: topImage,
-            lower_url: bottomImage
-          })
+          body: JSON.stringify(body)
         });
       }
 
       const result = await response.json();
-      console.log('🎉 마법 결과:', result);
+      setResultImage(result.url); // ❗ App.js에서 cancel 상태 확인 후 반영
     } catch (error) {
       console.error('❌ 피팅 요청 실패:', error);
+    } finally {
+      setLoading(false);
     }
   };
 

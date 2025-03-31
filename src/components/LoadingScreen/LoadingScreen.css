@@ -1,0 +1,66 @@
+.loading-photo-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .loading-photo-inner {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4;      /* 가로세로 비율 유지 */
+    margin: 0 auto;           /* 중앙 정렬 */
+    overflow: hidden;
+    border-radius: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  
+  .loading-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(3px) brightness(0.85);
+  }
+  
+  .scan-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: rgba(255, 255, 0, 0.5);
+    opacity: 0.9;
+    animation: scan-move 2s infinite ease-in-out;
+  }
+  
+  @keyframes scan-move {
+    0% { top: 0%; }
+    50% { top: 100%; }
+    100% { top: 0%; }
+  }
+  
+  .loading-message {
+    margin-top: 1.2rem;
+    font-size: 1rem;
+    color: #333;
+    font-weight: 600;
+  }
+  
+  .loading-subtext {
+    font-size: 0.85rem;
+    color: #999;
+    margin-bottom: 1rem;
+  }
+  
+  .cancel-button {
+    background-color: transparent;
+    color: #e11d48;
+    border: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+  }
+  

@@ -3,6 +3,7 @@ import { useState, useRef } from 'react';
 import axios from 'axios';
 import { PiUploadSimpleBold } from 'react-icons/pi';
 import { IoBody } from 'react-icons/io5';
+import RecentPreviewSlider from '../RecentPreviewSlider/RecentPreviewSlider';
 
 const CommonUploadSection = ({ onUpload, imageUrl }) => {
   const fileInputRef = useRef(null);
@@ -56,6 +57,9 @@ const CommonUploadSection = ({ onUpload, imageUrl }) => {
         style={{ display: 'none' }}
         onChange={handleFileChange}
       />
+      <div className="common-slider-wrapper">
+        <RecentPreviewSlider title="추천 의상" />
+      </div>
     </div>
   );
 };
