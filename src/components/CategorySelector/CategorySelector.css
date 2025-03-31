@@ -3,18 +3,19 @@
   }
   
   .category-label {
-    @apply font-semibold text-gray-800 mb-2;
+    @apply font-bold text-gray-800 mb-2;
     font-size: 16px;
   }
   
   .category-buttons {
-    @apply flex bg-gray-50 rounded-full overflow-hidden;
+    @apply flex bg-gray-50 rounded-full;
   }
   
   .category-button {
-    @apply flex-1 py-2 px-4 text-gray-600 text-sm font-medium;
+    @apply flex-1 py-2 px-4 text-gray-600 text-sm font-medium rounded-full;
   }
   
   .category-button-active {
-    @apply flex-1 py-2 px-4 bg-gray-800 text-white text-sm font-medium;
+    @apply flex-1 py-2 px-4 bg-gray-800 text-white text-sm font-medium rounded-full;
   }
+  

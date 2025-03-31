@@ -49,7 +49,7 @@ const OnePieceSection = ({ setOnePieceImage }) => {
               <PiUploadSimpleBold size={18} className="text-rose-500 mb-2" />
               원피스 사진 선택
             </p>
-            <p className="onepiece-upload-subtext">원피스 사진을 업로드해주세요</p>
+            <p className="onepiece-upload-subtext">원피스 사진을<br /> 선택하세요</p>
           </>
         )}
       </div>

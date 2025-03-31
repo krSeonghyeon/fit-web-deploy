@@ -53,7 +53,7 @@ const LayeredSection = ({ outerImage, setOuterImage, innerImage, setInnerImage }
               <p className="upload-label flex items-center gap-1 mb-2">
                 <PiUploadSimpleBold size={16} className="text-rose-500" /> 사진 선택
               </p>
-              <p className="upload-subtext mt-1">아우터 사진을 선택하세요</p>
+              <p className="upload-subtext mt-1">아우터 사진을<br /> 선택하세요</p>
             </>
           )}
         </div>
@@ -86,7 +86,7 @@ const LayeredSection = ({ outerImage, setOuterImage, innerImage, setInnerImage }
               <p className="upload-label flex items-center gap-1 mb-2">
                 <PiUploadSimpleBold size={16} className="text-rose-500" /> 사진 선택
               </p>
-              <p className="upload-subtext mt-1">이너 사진을 선택하세요</p>
+              <p className="upload-subtext mt-1">이너 사진을<br /> 선택하세요</p>
             </>
           )}
         </div>

@@ -46,7 +46,7 @@ const CommonUploadSection = ({ onUpload, imageUrl }) => {
             <p className="common-upload-label">
               <PiUploadSimpleBold size={18} className="text-rose-500" /> 내 사진 선택
             </p>
-            <p className="common-upload-subtext">전신 사진을 선택하세요</p>
+            <p className="common-upload-subtext">전신 사진을<br /> 선택하세요</p>
           </>
         )}
       </div>

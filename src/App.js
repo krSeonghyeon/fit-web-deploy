@@ -11,7 +11,6 @@ import ActionButton from './components/ActionButton/ActionButton';
 import BottomNav from './components/BottomNav/BottomNav';
 import ResultPage from './components/ResultPage/ResultPage';
 import LoadingScreen from './components/LoadingScreen/LoadingScreen';
-
 import { AnimatePresence, motion } from 'framer-motion';
 
 function App() {
@@ -22,7 +21,6 @@ function App() {
   const [onePieceImage, setOnePieceImage] = useState(null);
   const [outerImage, setOuterImage] = useState(null);
   const [innerImage, setInnerImage] = useState(null);
-
   const [resultImage, setResultImage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [cancelRequested, setCancelRequested] = useState(false);
@@ -32,7 +30,6 @@ function App() {
       alert('전신 사진을 먼저 업로드해주세요!');
       return;
     }
-
     setMode(newMode);
     setTopImage(null);
     setBottomImage(null);
@@ -42,59 +39,55 @@ function App() {
     setResultImage(null);
   };
 
-  const renderSection = () => {
-    return (
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={mode}
-          initial={{ opacity: 0, y: 5 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -5 }}
-          transition={{
-            duration: 0.2,
-            ease: [0.4, 0, 0.2, 1],
-          }}
-        >
-          {(() => {
-            switch (mode) {
-              case 'topBottom':
-                return (
-                  <UploadSection
-                    topImage={topImage}
-                    setTopImage={setTopImage}
-                    bottomImage={bottomImage}
-                    setBottomImage={setBottomImage}
-                  />
-                );
-              case 'onePiece':
-                return (
-                  <OnePieceSection
-                    onePieceImage={onePieceImage}
-                    setOnePieceImage={setOnePieceImage}
-                  />
-                );
-              case 'layered':
-                return (
-                  <LayeredSection
-                    outerImage={outerImage}
-                    setOuterImage={setOuterImage}
-                    innerImage={innerImage}
-                    setInnerImage={setInnerImage}
-                  />
-                );
-              default:
-                return (
-                  <CommonSection
-                    imageUrl={bodyImage}
-                    onUpload={setBodyImage}
-                  />
-                );
-            }
-          })()}
-        </motion.div>
-      </AnimatePresence>
-    );
-  };
+  const renderSection = () => (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={mode}
+        className="section-wrapper"
+        initial={{ opacity: 0, y: 5 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -5 }}
+        transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
+      >
+        {(() => {
+          switch (mode) {
+            case 'topBottom':
+              return (
+                <UploadSection
+                  topImage={topImage}
+                  setTopImage={setTopImage}
+                  bottomImage={bottomImage}
+                  setBottomImage={setBottomImage}
+                />
+              );
+            case 'onePiece':
+              return (
+                <OnePieceSection
+                  onePieceImage={onePieceImage}
+                  setOnePieceImage={setOnePieceImage}
+                />
+              );
+            case 'layered':
+              return (
+                <LayeredSection
+                  outerImage={outerImage}
+                  setOuterImage={setOuterImage}
+                  innerImage={innerImage}
+                  setInnerImage={setInnerImage}
+                />
+              );
+            default:
+              return (
+                <CommonSection
+                  imageUrl={bodyImage}
+                  onUpload={setBodyImage}
+                />
+              );
+          }
+        })()}
+      </motion.div>
+    </AnimatePresence>
+  );
 
   if (loading) {
     return (

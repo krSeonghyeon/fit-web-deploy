@@ -9,31 +9,32 @@ const CategorySelector = ({ mode, setMode }) => {
 
   return (
     <div className="category-section">
-      <p className="category-label">모드 선택</p>
-      <div className="category-buttons">
-        <button
-          className={`flex items-center justify-center gap-1 ${mode === 'topBottom' ? 'category-button-active' : 'category-button'}`}
-          onClick={() => handleModeClick('topBottom')}
-        >
-          <GiClothes size={14} />
-          상/하의
-        </button>
-        <button
-          className={`flex items-center justify-center gap-1 ${mode === 'onePiece' ? 'category-button-active' : 'category-button'}`}
-          onClick={() => handleModeClick('onePiece')}
-        >
-          <GiDress size={20} />
-          원피스
-        </button>
-        <button
-          className={`flex items-center justify-center gap-1 ${mode === 'layered' ? 'category-button-active' : 'category-button'}`}
-          onClick={() => handleModeClick('layered')}
-        >
-          <PiStackSimpleBold size={14} />
-          레이어드
-        </button>
-      </div>
-    </div>
+  <p className="category-label">✨ 모드 선택</p>
+  <div className="category-buttons">
+    <button
+      className={mode === 'topBottom' ? 'category-button-active' : 'category-button'}
+      onClick={() => handleModeClick('topBottom')}
+    >
+      <GiClothes size={16} />
+      상/하의
+    </button>
+    <button
+      className={mode === 'onePiece' ? 'category-button-active' : 'category-button'}
+      onClick={() => handleModeClick('onePiece')}
+    >
+      <GiDress size={18} />
+      원피스
+    </button>
+    <button
+      className={mode === 'layered' ? 'category-button-active' : 'category-button'}
+      onClick={() => handleModeClick('layered')}
+    >
+      <PiStackSimpleBold size={16} />
+      레이어드
+    </button>
+  </div>
+</div>
+
   );
 };
 
