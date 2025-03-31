@@ -89,12 +89,13 @@ function App() {
     </AnimatePresence>
   );
 
-  if (loading) {
-    return (
-      <div className="app-container">
-        <div className="card">
-          <Header />
-          <div className="scrollable-content main-padding">
+  return (
+    <div className="app-container">
+      <div className="card">
+        <Header />
+
+        <div className="scrollable-content main-padding">
+          {loading ? (
             <LoadingScreen
               bodyImage={bodyImage}
               onCancel={() => {
@@ -102,44 +103,36 @@ function App() {
                 setLoading(false);
               }}
             />
-          </div>
-          <BottomNav setMode={setMode} />
+          ) : resultImage && !cancelRequested ? (
+            <ResultPage
+              imageUrl={resultImage}
+              onBack={() => {
+                setResultImage(null);
+                setMode('common');
+              }}
+            />
+          ) : (
+            <>
+              {renderSection()}
+              <CategorySelector mode={mode} setMode={handleModeChange} />
+              <ExtraOptions />
+              <ActionButton
+                mode={mode}
+                bodyImage={bodyImage}
+                topImage={topImage}
+                bottomImage={bottomImage}
+                onePieceImage={onePieceImage}
+                outerImage={outerImage}
+                innerImage={innerImage}
+                setLoading={setLoading}
+                setResultImage={setResultImage}
+                cancelRequested={cancelRequested}
+                setCancelRequested={setCancelRequested}
+              />
+            </>
+          )}
         </div>
-      </div>
-    );
-  }
 
-  if (resultImage && !cancelRequested) {
-    return (
-      <ResultPage
-        imageUrl={resultImage}
-        onBack={() => setResultImage(null)}
-      />
-    );
-  }
-
-  return (
-    <div className="app-container">
-      <div className="card">
-        <Header />
-        <div className="scrollable-content main-padding">
-          {renderSection()}
-          <CategorySelector mode={mode} setMode={handleModeChange} />
-          <ExtraOptions />
-          <ActionButton
-            mode={mode}
-            bodyImage={bodyImage}
-            topImage={topImage}
-            bottomImage={bottomImage}
-            onePieceImage={onePieceImage}
-            outerImage={outerImage}
-            innerImage={innerImage}
-            setLoading={setLoading}
-            setResultImage={setResultImage}
-            cancelRequested={cancelRequested}
-            setCancelRequested={setCancelRequested}
-          />
-        </div>
         <BottomNav setMode={setMode} />
       </div>
     </div>

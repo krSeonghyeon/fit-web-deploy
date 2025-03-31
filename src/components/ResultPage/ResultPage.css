@@ -1,54 +1,101 @@
-/* ResultPage.css */
-.result-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    text-align: center;
-  }
-  
-  .result-back {
-    @apply bg-rose-500 text-white px-4 py-2 rounded mb-4;
-  }
-  
-  .result-image-wrapper {
-    @apply w-full max-w-sm;
-  }
-  
-  .result-image {
-    width: 100%;
-    border-radius: 1rem;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-  }
-  
-  .loading-screen {
-    @apply flex flex-col items-center justify-center h-screen;
-  }
-  
-  .spinner {
-    width: 48px;
-    height: 48px;
-    border: 4px solid #e0e0e0;
-    border-top: 4px solid #7f5af0;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-  
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  
-  .cancel-button {
-    background-color: transparent;
-    border: none;
-    color: #f43f5e; /* tailwind 기준 rose-500 */
-    font-weight: bold;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: color 0.2s ease;
-  }
-  
-  
+.result-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  width: 100%;
+  padding: 1rem 0;
+}
+
+.result-image-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-radius: 1rem;
+  border: 2px solid rgba(0, 0, 0, 0.6);
+  background-color: #1a1a1a;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+.result-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.result-buttons {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0 0.25rem;
+}
+
+.download-button,
+.back-button {
+  width: 100%;
+  padding: 0.8rem 0;
+  font-size: 1rem;
+  font-weight: 900;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.download-button {
+  width: 100%;
+  padding: 0.8rem 0;
+  font-size: 1rem;
+  font-weight: 900;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+
+  background: linear-gradient(135deg, #7f5af0, #2cb2ff); /* ✅ 그라데이션 적용 */
+  color: white;
+  text-decoration: none;
+
+  box-shadow: 0 4px 12px rgba(127, 90, 240, 0.3); /* ✅ 동일한 그림자 */
+  letter-spacing: 0.5px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.back-button {
+  background-color: #e5e7eb;
+  color: #374151;
+}
+
+/* 아이콘 버튼 */
+.image-icons {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.icon-circle {
+  background-color: rgba(107, 114, 128, 0.2); /* 회색 (tailwind의 gray-500 정도) */
+  border-radius: 50%;
+  padding: 0.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  transition: background-color 0.2s ease;
+}
+
+.icon-circle:hover {
+  background-color: rgba(107, 114, 128, 0.8); /* hover 시 좀 더 진한 회색 */
+}
+
