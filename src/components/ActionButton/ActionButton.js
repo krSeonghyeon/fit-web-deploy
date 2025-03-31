@@ -11,7 +11,7 @@ const ActionButton = ({
   innerImage,
   setLoading,
   setResultImage,
-  setCancelRequested // ✅ 이름 통일
+  setCancelRequested
 }) => {
   const handleClick = async () => {
     console.log('🪄 버튼 클릭됨');
@@ -21,7 +21,7 @@ const ActionButton = ({
       return;
     }
 
-    setCancelRequested(false); // ✅ 취소 초기화
+    setCancelRequested(false);
     setLoading(true);
 
     try {
@@ -63,7 +63,7 @@ const ActionButton = ({
       }
 
       const result = await response.json();
-      setResultImage(result.url); // ❗ App.js에서 cancel 상태 확인 후 반영
+      setResultImage(result.url);
     } catch (error) {
       console.error('❌ 피팅 요청 실패:', error);
     } finally {
@@ -72,7 +72,11 @@ const ActionButton = ({
   };
 
   return (
-    <button className="action-button" onClick={handleClick}>
+    <button
+      className={`action-button ${mode === 'common' ? 'disabled' : ''}`}
+      onClick={handleClick}
+      disabled={mode === 'common'}
+    >
       <PiCoatHangerBold size={24} className="mr-2" />
       <span>마법을 지켜보세요!</span>
     </button>

@@ -5,13 +5,21 @@ import { IoShareSocial } from "react-icons/io5";
 import { ImEnlarge2 } from "react-icons/im";
 
 const ResultPage = ({ imageUrl, onBack }) => {
-  const handleDownload = () => {
-    const link = document.createElement('a');
-    link.href = imageUrl;
-    link.download = 'result-image.jpg';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const handleDownload = async () => {
+    try {
+      const response = await fetch(imageUrl);
+      const blob = await response.blob();
+  
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'result-image.jpg';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(link.href);
+    } catch (error) {
+      console.error('이미지 다운로드 실패:', error);
+    }
   };
 
   return (
