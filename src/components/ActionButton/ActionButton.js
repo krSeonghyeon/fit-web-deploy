@@ -25,7 +25,7 @@ const ActionButton = ({
     setLoading(true);
 
     try {
-      const apiUrl = import.meta.env.VITE_API_URL;
+      const apiUrl = process.env.REACT_APP_API_URL;
       let response;
 
       if (mode === 'onePiece') {
@@ -35,7 +35,7 @@ const ActionButton = ({
           return;
         }
 
-        response = await fetch('${apiUrl}/dress', {
+        response = await fetch(`${apiUrl}/dress`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -56,7 +56,7 @@ const ActionButton = ({
           lower_url: bottomImage || null
         };
 
-        response = await fetch('${apiUrl}/sum', {
+        response = await fetch(`${apiUrl}/sum`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(body)

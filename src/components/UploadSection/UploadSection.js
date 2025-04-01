@@ -17,8 +17,8 @@ const UploadSection = ({ setTopImage, setBottomImage, topImage, bottomImage }) =
     formData.append('file', file);
 
     try {
-      const apiUrl = import.meta.env.VITE_API_URL;
-      const response = await axios.post('${apiUrl}/upload', formData, {
+      const apiUrl = process.env.REACT_APP_API_URL;
+      const response = await axios.post(`${apiUrl}/upload`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       notifyParent(response.data.url);

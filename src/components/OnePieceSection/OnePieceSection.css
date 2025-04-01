@@ -4,6 +4,9 @@
   
   .onepiece-upload-box {
     @apply w-[240px] h-[240px] bg-gray-50 rounded-xl p-4 shadow-sm flex flex-col items-center justify-center text-center flex-shrink-0;
+    border: 1px solid rgba(0, 0, 0, 0.1); /* 아주 얇은 검정색 테두리 */
+    overflow: hidden;
+    background-clip: padding-box;
   }
   
   .onepiece-upload-icon {

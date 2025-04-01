@@ -19,7 +19,7 @@ const LayeredSection = ({ outerImage, setOuterImage, innerImage, setInnerImage }
     formData.append('file', file);
 
     try {
-      const apiUrl = import.meta.env.VITE_API_URL;
+      const apiUrl = process.env.REACT_APP_API_URL;
       const res = await axios.post(`${apiUrl}/upload`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
