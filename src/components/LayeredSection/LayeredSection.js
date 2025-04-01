@@ -35,11 +35,11 @@ const LayeredSection = ({ outerImage, setOuterImage, innerImage, setInnerImage }
   };
 
   const outerRecommended = [
-
+    'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/ce24422f-2e83-4393-bd5f-efd2300f883f.png',
   ];
 
   const innerRecommended = [
- 
+    'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/427ca040-f318-4a9b-9258-7a7820b32f3f.png'
   ];
 
   return (
