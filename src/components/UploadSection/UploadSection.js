@@ -1,5 +1,5 @@
 import './UploadSection.css';
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 import axios from 'axios';
 import { FaTshirt } from 'react-icons/fa';
 import { PiPants, PiUploadSimpleBold } from 'react-icons/pi';
@@ -26,6 +26,20 @@ const UploadSection = ({ setTopImage, setBottomImage, topImage, bottomImage }) =
     }
   };
 
+  const topRecommended = [
+    'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/33345137-efc3-42a1-b5cb-7d16918b4673.jpg',
+    'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/60b5b477-fb92-4716-8d9b-2933d2a8e0bb.png',
+    'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/86785a16-ca46-4204-a96d-76b229f50495.png',
+    'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/3f746121-3f4e-47e1-9494-3025a955aeb7.png'
+  ];
+
+  const bottomRecommended = [
+    'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/9f45694a-05c8-466c-b9f7-1e6ef80bd8d0.jpg',
+    'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/a5724a9f-5e9a-481d-8967-9406dcc36787.jpg',
+    'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/c045e102-5c84-40c7-925e-1d66f8978b3c.png',
+    'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/9f4785a2-d6b9-4be1-9837-b19473a447d8.webp'
+  ];
+
   return (
     <>
       {/* 상의 */}
@@ -50,7 +64,11 @@ const UploadSection = ({ setTopImage, setBottomImage, topImage, bottomImage }) =
           )}
         </div>
         <div className="upload-slider-wrapper">
-          <RecentPreviewSlider title="최근 사진" />
+          <RecentPreviewSlider
+            title="추천 상의"
+            images={topRecommended}
+            onSelect={setTopImage}
+          />
         </div>
         <input
           type="file"
@@ -83,7 +101,11 @@ const UploadSection = ({ setTopImage, setBottomImage, topImage, bottomImage }) =
           )}
         </div>
         <div className="upload-slider-wrapper">
-          <RecentPreviewSlider title="최근 의류" />
+          <RecentPreviewSlider
+            title="추천 하의"
+            images={bottomRecommended}
+            onSelect={setBottomImage}
+          />
         </div>
         <input
           type="file"
@@ -96,6 +118,5 @@ const UploadSection = ({ setTopImage, setBottomImage, topImage, bottomImage }) =
     </>
   );
 };
-
 
 export default UploadSection;

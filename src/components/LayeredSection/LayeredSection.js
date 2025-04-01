@@ -34,6 +34,14 @@ const LayeredSection = ({ outerImage, setOuterImage, innerImage, setInnerImage }
     setInnerImage(temp);
   };
 
+  const outerRecommended = [
+
+  ];
+
+  const innerRecommended = [
+ 
+  ];
+
   return (
     <div className="upload-row">
       <div className="upload-left-col">
@@ -99,10 +107,18 @@ const LayeredSection = ({ outerImage, setOuterImage, innerImage, setInnerImage }
         />
       </div>
 
-      {/* 오른쪽 */}
+      {/* 오른쪽: 각각 추천 이미지 연결 */}
       <div className="upload-slider-wrapper">
-        <RecentPreviewSlider title="추천 사진" />
-        <RecentPreviewSlider title="추천 의류" />
+        <RecentPreviewSlider
+          title="추천 아우터"
+          images={outerRecommended}
+          onSelect={setOuterImage}
+        />
+        <RecentPreviewSlider
+          title="추천 이너"
+          images={innerRecommended}
+          onSelect={setInnerImage}
+        />
       </div>
     </div>
   );

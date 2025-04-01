@@ -1,13 +1,13 @@
 import './RecentPreviewSlider.css';
 
-const RecentPreviewSlider = ({ type }) => {
+const RecentPreviewSlider = ({ title = "추천 사진", images = [], onSelect }) => {
   return (
     <div>
-      <p className="recent-preview-title">추천 사진</p>
+      <p className="recent-preview-title">{title}</p>
       <div className="recent-scroll-container">
-        {[...Array(8)].map((_, i) => (
-          <div key={i} className="recent-circle">
-            <img src="/옷.png" className="recent-img" />
+        {images.map((url, i) => (
+          <div key={i} className="recent-circle" onClick={() => onSelect?.(url)}>
+            <img src={url} alt={`추천${i}`} className="recent-img" />
           </div>
         ))}
       </div>

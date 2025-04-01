@@ -20,9 +20,6 @@
   
     background-color: #1a1a1a; /* 거의 검은색 */
     backdrop-filter: blur(2px);
-  
-    /* box-shadow도 흰색 느낌 없도록 수정 */
-    box-shadow: 0 6px 15px #1F2937;
   }
   
   

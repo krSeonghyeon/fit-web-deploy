@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import './OnePieceSection.css';
 import { PiUploadSimpleBold } from 'react-icons/pi';
 import { GiDress } from 'react-icons/gi';
@@ -27,6 +27,18 @@ const OnePieceSection = ({ setOnePieceImage }) => {
     } catch (err) {
       console.error('업로드 실패:', err);
     }
+  };
+
+  const recommendedImages = [
+    'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/21452436-7aa7-4037-9ae5-ccc85c31ab78.png',
+    'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/c1796503-64a2-45d0-9c9a-83482d5b6f82.png',
+    'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/dc13071d-86e7-4c02-8b61-5094594e3cdf.png',
+    'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/9978425d-e083-4164-8d2e-9c876c69ca99.png'
+  ];
+
+  const handleRecommendedSelect = (url) => {
+    setImageUrl(url);
+    if (setOnePieceImage) setOnePieceImage(url);
   };
 
   return (
@@ -63,7 +75,11 @@ const OnePieceSection = ({ setOnePieceImage }) => {
       />
 
       <div className="onepiece-slider-wrapper">
-        <RecentPreviewSlider title="추천 의상" />
+        <RecentPreviewSlider
+          title="추천 원피스"
+          images={recommendedImages}
+          onSelect={handleRecommendedSelect}
+        />
       </div>
     </div>
   );
