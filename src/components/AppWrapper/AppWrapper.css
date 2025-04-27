@@ -1,9 +1,13 @@
+html, body, #root {
+  height: 100%;
+}
+
 .app-container {
   @apply flex justify-center items-center w-full h-screen bg-white;
 }
 
 .card {
-  @apply relative w-96 h-full bg-white rounded-xl flex flex-col;
+  @apply relative w-96 h-[93vh] bg-white rounded-xl flex flex-col overflow-y-auto;
 }
 
 .scrollable-content {
