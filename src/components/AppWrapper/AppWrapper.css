@@ -1,9 +1,9 @@
 .app-container {
-  @apply flex justify-center items-center w-full h-screen bg-gray-100;
+  @apply flex justify-center items-center w-full h-screen bg-white;
 }
 
 .card {
-  @apply relative w-96 h-full max-h-[95vh] bg-white rounded-xl shadow-lg flex flex-col;
+  @apply relative w-96 h-full bg-white rounded-xl flex flex-col;
 }
 
 .scrollable-content {
