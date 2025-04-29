@@ -15,7 +15,6 @@
   border-radius: 1rem;
   border: 2px solid rgba(0, 0, 0, 0.6);
   background-color: #1a1a1a;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
 }
 
 .result-image {
@@ -65,9 +64,7 @@
   color: white;
   text-decoration: none;
 
-  box-shadow: 0 4px 12px rgba(127, 90, 240, 0.3); /* ✅ 동일한 그림자 */
   letter-spacing: 0.5px;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .back-button {
