@@ -103,7 +103,7 @@ function App() {
         </div>
 
         {mode !== 'history' && (
-          <div style={{ display: 'flex', flexDirection: 'column'}}>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
             <CategorySelector mode={mode} setMode={handleModeChange} />
             <ExtraOptions />
             <ActionButton
@@ -128,7 +128,12 @@ function App() {
   return (
     <div className="app-container">
       <div className="card">
-        <Header />
+        <Header
+          showBackButton={mode !== 'common'}
+          onBack={() => {
+            setMode('common');
+          }}
+        />
         <div className="scrollable-content main-padding">
           {loading ? (
             <LoadingScreen
