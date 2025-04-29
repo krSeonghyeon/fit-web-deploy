@@ -20,7 +20,7 @@ const BottomNav = ({ setMode }) => (
         </div>
       </div>
 
-      <div className="nav-item" onClick={() => setMode('settings')}>
+      <div className="nav-item">
         <Settings size={20} className="text-gray-400" />
         <span className="nav-label">설정</span>
       </div>

@@ -129,7 +129,7 @@ function App() {
     <div className="app-container">
       <div className="card">
         <Header
-          showBackButton={mode !== 'common'}
+          showBackButton={!loading && mode !== 'common'} // ✅ 로딩 중에는 뒤로가기 버튼 숨기기
           onBack={() => {
             setMode('common');
           }}
