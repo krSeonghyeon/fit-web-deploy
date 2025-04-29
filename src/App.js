@@ -11,10 +11,12 @@ import ActionButton from './components/ActionButton/ActionButton';
 import BottomNav from './components/BottomNav/BottomNav';
 import ResultPage from './components/ResultPage/ResultPage';
 import LoadingScreen from './components/LoadingScreen/LoadingScreen';
+import HistorySection from './components/HistorySection/HistorySection';
 import { AnimatePresence, motion } from 'framer-motion';
 
 function App() {
   const [mode, setMode] = useState('common');
+  const [prevMode, setPrevMode] = useState(null);
   const [bodyImage, setBodyImage] = useState(null);
   const [topImage, setTopImage] = useState(null);
   const [bottomImage, setBottomImage] = useState(null);
@@ -26,10 +28,11 @@ function App() {
   const [cancelRequested, setCancelRequested] = useState(false);
 
   const handleModeChange = (newMode) => {
-    if (!bodyImage && newMode !== 'common') {
+    if (!bodyImage && newMode !== 'common' && newMode !== 'history') {
       alert('전신 사진을 먼저 업로드해주세요!');
       return;
     }
+    setPrevMode(mode);
     setMode(newMode);
     setTopImage(null);
     setBottomImage(null);
@@ -39,52 +42,85 @@ function App() {
     setResultImage(null);
   };
 
-  const renderSection = () => (
-    <AnimatePresence mode="wait">
+  const renderSectionContent = () => {
+    switch (mode) {
+      case 'topBottom':
+        return (
+          <UploadSection
+            topImage={topImage}
+            setTopImage={setTopImage}
+            bottomImage={bottomImage}
+            setBottomImage={setBottomImage}
+          />
+        );
+      case 'onePiece':
+        return (
+          <OnePieceSection
+            onePieceImage={onePieceImage}
+            setOnePieceImage={setOnePieceImage}
+          />
+        );
+      case 'layered':
+        return (
+          <LayeredSection
+            outerImage={outerImage}
+            setOuterImage={setOuterImage}
+            innerImage={innerImage}
+            setInnerImage={setInnerImage}
+          />
+        );
+      default:
+        return (
+          <CommonSection
+            imageUrl={bodyImage}
+            onUpload={setBodyImage}
+          />
+        );
+    }
+  };
+
+  const renderAnimatedContent = () => (
+    <AnimatePresence mode="wait" initial={false}>
       <motion.div
         key={mode}
-        className="section-wrapper"
-        initial={{ opacity: 0, y: 5 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -5 }}
-        transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+        style={{
+          flex: '1 1 auto',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'flex-start',
+          overflowY: 'auto',
+          width: '100%',
+          height: '100%',
+          padding: '0 1rem',
+        }}
       >
-        {(() => {
-          switch (mode) {
-            case 'topBottom':
-              return (
-                <UploadSection
-                  topImage={topImage}
-                  setTopImage={setTopImage}
-                  bottomImage={bottomImage}
-                  setBottomImage={setBottomImage}
-                />
-              );
-            case 'onePiece':
-              return (
-                <OnePieceSection
-                  onePieceImage={onePieceImage}
-                  setOnePieceImage={setOnePieceImage}
-                />
-              );
-            case 'layered':
-              return (
-                <LayeredSection
-                  outerImage={outerImage}
-                  setOuterImage={setOuterImage}
-                  innerImage={innerImage}
-                  setInnerImage={setInnerImage}
-                />
-              );
-            default:
-              return (
-                <CommonSection
-                  imageUrl={bodyImage}
-                  onUpload={setBodyImage}
-                />
-              );
-          }
-        })()}
+        <div className={`section-wrapper ${mode === 'history' ? 'history-wrapper' : ''}`}>
+          {mode === 'history' ? <HistorySection /> : renderSectionContent()}
+        </div>
+
+        {mode !== 'history' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+            <CategorySelector mode={mode} setMode={handleModeChange} />
+            <ExtraOptions />
+            <ActionButton
+              mode={mode}
+              bodyImage={bodyImage}
+              topImage={topImage}
+              bottomImage={bottomImage}
+              onePieceImage={onePieceImage}
+              outerImage={outerImage}
+              innerImage={innerImage}
+              setLoading={setLoading}
+              setResultImage={setResultImage}
+              cancelRequested={cancelRequested}
+              setCancelRequested={setCancelRequested}
+            />
+          </div>
+        )}
       </motion.div>
     </AnimatePresence>
   );
@@ -93,7 +129,6 @@ function App() {
     <div className="app-container">
       <div className="card">
         <Header />
-
         <div className="scrollable-content main-padding">
           {loading ? (
             <LoadingScreen
@@ -108,32 +143,14 @@ function App() {
               imageUrl={resultImage}
               onBack={() => {
                 setResultImage(null);
-                setMode('common');
+                handleModeChange('common');
               }}
             />
           ) : (
-            <>
-              {renderSection()}
-              <CategorySelector mode={mode} setMode={handleModeChange} />
-              <ExtraOptions />
-              <ActionButton
-                mode={mode}
-                bodyImage={bodyImage}
-                topImage={topImage}
-                bottomImage={bottomImage}
-                onePieceImage={onePieceImage}
-                outerImage={outerImage}
-                innerImage={innerImage}
-                setLoading={setLoading}
-                setResultImage={setResultImage}
-                cancelRequested={cancelRequested}
-                setCancelRequested={setCancelRequested}
-              />
-            </>
+            renderAnimatedContent()
           )}
         </div>
-
-        <BottomNav setMode={setMode} />
+        <BottomNav setMode={handleModeChange} />
       </div>
     </div>
   );

@@ -1,0 +1,28 @@
+import { useEffect, useState } from 'react';
+import './HistorySection.css';
+
+const HistorySection = () => {
+  const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    const staticImages = Array(18).fill('/옷.png');
+    setImages(staticImages);
+  }, []);
+
+  return (
+    <div className="history-scroll-container">
+      <div className="history-title-wrapper">
+        <div className="history-title">기록</div>
+      </div>
+      <div className="history-grid">
+        {images.map((src, index) => (
+          <div key={index} className="history-item">
+            <img src={src} alt={`history-${index}`} className="history-img" />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default HistorySection;
