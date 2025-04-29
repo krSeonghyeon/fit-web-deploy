@@ -103,7 +103,7 @@ function App() {
         </div>
 
         {mode !== 'history' && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column'}}>
             <CategorySelector mode={mode} setMode={handleModeChange} />
             <ExtraOptions />
             <ActionButton
