@@ -43,6 +43,23 @@ const ActionButton = ({
             dress_url: onePieceImage
           })
         });
+      } else if (mode === 'layered') {
+        if (!outerImage || !innerImage) {
+          alert('아우터와 이너 사진을 모두 업로드해주세요!');
+          setLoading(false);
+          return;
+        }
+
+        response = await fetch(`${apiUrl}/layered`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            model_url: bodyImage,
+            outer_url: outerImage,
+            inner_url: innerImage,
+            offset: 0
+          })
+        });
       } else {
         if (!topImage && !bottomImage) {
           alert('최소한 하나의 의류(상의 또는 하의)를 업로드해주세요!');
