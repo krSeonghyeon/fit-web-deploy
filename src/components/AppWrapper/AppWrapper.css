@@ -1,3 +1,11 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overscroll-behavior: none; /* 💡 튕김 방지 */
+  background-color: white;
+}
+
 .app-container {
   @apply flex justify-center items-center w-full h-screen bg-white;
 }
