@@ -46,8 +46,9 @@ const CommonUploadSection = ({ onUpload, imageUrl }) => {
         onClick={() => fileInputRef.current.click()}
         style={{
           backgroundImage: imageUrl ? `url(${imageUrl})` : 'none',
-          backgroundSize: 'cover',
+          backgroundSize: 'contain',
           backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
         }}
       >
         {!imageUrl && (

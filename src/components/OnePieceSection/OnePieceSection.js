@@ -49,8 +49,9 @@ const OnePieceSection = ({ setOnePieceImage }) => {
         onClick={() => fileInputRef.current.click()}
         style={{
           backgroundImage: imageUrl ? `url(${imageUrl})` : 'none',
-          backgroundSize: 'cover',
+          backgroundSize: 'contain',
           backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
         }}
       >
         {!imageUrl && (

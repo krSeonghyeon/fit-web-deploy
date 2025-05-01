@@ -52,8 +52,9 @@ const LayeredSection = ({ outerImage, setOuterImage, innerImage, setInnerImage }
           onClick={() => outerRef.current.click()}
           style={{
             backgroundImage: outerImage ? `url(${outerImage})` : 'none',
-            backgroundSize: 'cover',
+            backgroundSize: 'contain',
             backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
           }}
         >
           {!outerImage && (

@@ -50,8 +50,9 @@ const UploadSection = ({ setTopImage, setBottomImage, topImage, bottomImage }) =
           onClick={() => topInputRef.current.click()}
           style={{
             backgroundImage: topImage ? `url(${topImage})` : 'none',
-            backgroundSize: 'cover',
+            backgroundSize: 'contain',
             backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
           }}
         >
           {!topImage && (
@@ -87,8 +88,9 @@ const UploadSection = ({ setTopImage, setBottomImage, topImage, bottomImage }) =
           onClick={() => bottomInputRef.current.click()}
           style={{
             backgroundImage: bottomImage ? `url(${bottomImage})` : 'none',
-            backgroundSize: 'cover',
+            backgroundSize: 'contain',
             backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
           }}
         >
           {!bottomImage && (
