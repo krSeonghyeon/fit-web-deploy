@@ -5,8 +5,8 @@ const HistorySection = () => {
   const [images, setImages] = useState([]);
 
   useEffect(() => {
-    const staticImages = Array(18).fill('/옷.png');
-    setImages(staticImages);
+    const saved = JSON.parse(localStorage.getItem('historyImages') || '[]');
+    setImages(saved);
   }, []);
 
   return (

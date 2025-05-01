@@ -5,7 +5,7 @@ import CommonSection from './components/CommonSection/CommonSection';
 import OnePieceSection from './components/OnePieceSection/OnePieceSection';
 import UploadSection from './components/UploadSection/UploadSection';
 import LayeredSection from './components/LayeredSection/LayeredSection';
-import LongOuterSection from './components/LongOuterSection/LongOuterSection'; // ✅ 추가
+import LongOuterSection from './components/LongOuterSection/LongOuterSection';
 import CategorySelector from './components/CategorySelector/CategorySelector';
 import ExtraOptions from './components/ExtraOptions/ExtraOptions';
 import ActionButton from './components/ActionButton/ActionButton';
@@ -24,7 +24,7 @@ function App() {
   const [onePieceImage, setOnePieceImage] = useState(null);
   const [outerImage, setOuterImage] = useState(null);
   const [innerImage, setInnerImage] = useState(null);
-  const [longOuterImage, setLongOuterImage] = useState(null); // ✅ 분리된 상태
+  const [longOuterImage, setLongOuterImage] = useState(null);
   const [resultImage, setResultImage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [cancelRequested, setCancelRequested] = useState(false);
@@ -41,7 +41,7 @@ function App() {
     setOnePieceImage(null);
     setOuterImage(null);
     setInnerImage(null);
-    setLongOuterImage(null); // ✅ 초기화
+    setLongOuterImage(null);
     setResultImage(null);
   };
 
@@ -123,7 +123,7 @@ function App() {
               onePieceImage={onePieceImage}
               outerImage={outerImage}
               innerImage={innerImage}
-              longOuterImage={longOuterImage} // ✅ 전달
+              longOuterImage={longOuterImage}
               setLoading={setLoading}
               setResultImage={setResultImage}
               cancelRequested={cancelRequested}
@@ -154,13 +154,24 @@ function App() {
               }}
             />
           ) : resultImage && !cancelRequested ? (
-            <ResultPage
-              imageUrl={resultImage}
-              onBack={() => {
-                setResultImage(null);
-                handleModeChange('common');
-              }}
-            />
+            (() => {
+              // ✅ 기록 저장
+              const history = JSON.parse(localStorage.getItem('historyImages') || '[]');
+              if (!history.includes(resultImage)) {
+                history.unshift(resultImage);
+                localStorage.setItem('historyImages', JSON.stringify(history.slice(0, 30)));
+              }
+
+              return (
+                <ResultPage
+                  imageUrl={resultImage}
+                  onBack={() => {
+                    setResultImage(null);
+                    handleModeChange('common');
+                  }}
+                />
+              );
+            })()
           ) : (
             renderAnimatedContent()
           )}
