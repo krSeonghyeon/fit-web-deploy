@@ -26,6 +26,7 @@ function App() {
   const [innerImage, setInnerImage] = useState(null);
   const [longOuterImage, setLongOuterImage] = useState(null);
   const [resultImage, setResultImage] = useState(null);
+  const [fromHistory, setFromHistory] = useState(false);
   const [loading, setLoading] = useState(false);
   const [cancelRequested, setCancelRequested] = useState(false);
 
@@ -43,6 +44,7 @@ function App() {
     setInnerImage(null);
     setLongOuterImage(null);
     setResultImage(null);
+    setFromHistory(false);
   };
 
   const renderSectionContent = () => {
@@ -78,6 +80,16 @@ function App() {
             setLongOuterImage={setLongOuterImage}
           />
         );
+      case 'history':
+        return (
+          <HistorySection
+            onSelect={(url) => {
+              setResultImage(url);
+              setFromHistory(true);
+              setMode('result');
+            }}
+          />
+        );
       default:
         return (
           <CommonSection
@@ -108,10 +120,10 @@ function App() {
         }}
       >
         <div className={`section-wrapper ${mode === 'history' ? 'history-wrapper' : ''}`}>
-          {mode === 'history' ? <HistorySection /> : renderSectionContent()}
+          {renderSectionContent()}
         </div>
 
-        {mode !== 'history' && (
+        {mode !== 'history' && mode !== 'result' && (
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <CategorySelector mode={mode} setMode={handleModeChange} />
             <ExtraOptions />
@@ -141,7 +153,17 @@ function App() {
         <Header
           showBackButton={!loading && mode !== 'common'}
           onBack={() => {
-            setMode('common');
+            if (mode === 'result' && fromHistory) {
+              // ✅ 기록에서 온 결과일 경우 → 기록으로 돌아가기
+              setResultImage(null);
+              setFromHistory(false);
+              setMode('history');
+            } else {
+              // ✅ 일반적인 경우 → common으로
+              setResultImage(null);
+              setFromHistory(false);
+              setMode('common');
+            }
           }}
         />
         <div className="scrollable-content main-padding">
@@ -153,21 +175,28 @@ function App() {
                 setLoading(false);
               }}
             />
-          ) : resultImage && !cancelRequested ? (
+          ) : resultImage && (!cancelRequested || fromHistory) ? (
             (() => {
-              // ✅ 기록 저장
-              const history = JSON.parse(localStorage.getItem('historyImages') || '[]');
-              if (!history.includes(resultImage)) {
-                history.unshift(resultImage);
-                localStorage.setItem('historyImages', JSON.stringify(history.slice(0, 30)));
+              if (!fromHistory) {
+                const history = JSON.parse(localStorage.getItem('historyImages') || '[]');
+                if (!history.includes(resultImage)) {
+                  history.unshift(resultImage);
+                  localStorage.setItem('historyImages', JSON.stringify(history.slice(0, 30)));
+                }
               }
 
               return (
                 <ResultPage
                   imageUrl={resultImage}
                   onBack={() => {
-                    setResultImage(null);
-                    handleModeChange('common');
+                    if (fromHistory) {
+                      setResultImage(null);
+                      setFromHistory(false);
+                      setMode('history');
+                    } else {
+                      setResultImage(null);
+                      setMode('common');
+                    }
                   }}
                 />
               );
