@@ -5,6 +5,7 @@ import CommonSection from './components/CommonSection/CommonSection';
 import OnePieceSection from './components/OnePieceSection/OnePieceSection';
 import UploadSection from './components/UploadSection/UploadSection';
 import LayeredSection from './components/LayeredSection/LayeredSection';
+import LongOuterSection from './components/LongOuterSection/LongOuterSection'; // ✅ 추가
 import CategorySelector from './components/CategorySelector/CategorySelector';
 import ExtraOptions from './components/ExtraOptions/ExtraOptions';
 import ActionButton from './components/ActionButton/ActionButton';
@@ -23,6 +24,7 @@ function App() {
   const [onePieceImage, setOnePieceImage] = useState(null);
   const [outerImage, setOuterImage] = useState(null);
   const [innerImage, setInnerImage] = useState(null);
+  const [longOuterImage, setLongOuterImage] = useState(null); // ✅ 분리된 상태
   const [resultImage, setResultImage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [cancelRequested, setCancelRequested] = useState(false);
@@ -39,6 +41,7 @@ function App() {
     setOnePieceImage(null);
     setOuterImage(null);
     setInnerImage(null);
+    setLongOuterImage(null); // ✅ 초기화
     setResultImage(null);
   };
 
@@ -67,6 +70,12 @@ function App() {
             setOuterImage={setOuterImage}
             innerImage={innerImage}
             setInnerImage={setInnerImage}
+          />
+        );
+      case 'longOuter':
+        return (
+          <LongOuterSection
+            setLongOuterImage={setLongOuterImage}
           />
         );
       default:
@@ -114,6 +123,7 @@ function App() {
               onePieceImage={onePieceImage}
               outerImage={outerImage}
               innerImage={innerImage}
+              longOuterImage={longOuterImage} // ✅ 전달
               setLoading={setLoading}
               setResultImage={setResultImage}
               cancelRequested={cancelRequested}
@@ -129,7 +139,7 @@ function App() {
     <div className="app-container">
       <div className="card">
         <Header
-          showBackButton={!loading && mode !== 'common'} // ✅ 로딩 중에는 뒤로가기 버튼 숨기기
+          showBackButton={!loading && mode !== 'common'}
           onBack={() => {
             setMode('common');
           }}

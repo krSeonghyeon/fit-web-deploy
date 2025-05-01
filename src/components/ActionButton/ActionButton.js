@@ -9,6 +9,7 @@ const ActionButton = ({
   onePieceImage,
   outerImage,
   innerImage,
+  longOuterImage, // ✅ 추가
   setLoading,
   setResultImage,
   setCancelRequested
@@ -41,6 +42,21 @@ const ActionButton = ({
           body: JSON.stringify({
             model_url: bodyImage,
             dress_url: onePieceImage
+          })
+        });
+      } else if (mode === 'longOuter') { // ✅ 추가
+        if (!longOuterImage) {
+          alert('롱아우터 사진을 업로드해주세요!');
+          setLoading(false);
+          return;
+        }
+
+        response = await fetch(`${apiUrl}/dress`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            model_url: bodyImage,
+            dress_url: longOuterImage
           })
         });
       } else if (mode === 'layered') {
