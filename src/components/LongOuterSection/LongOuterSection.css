@@ -1,27 +1,26 @@
-.longouter-container {
-    @apply flex flex-col items-center gap-4;
-  }
-  
-  .longouter-upload-box {
-    @apply w-[240px] h-[240px] bg-gray-50 rounded-xl p-4 shadow-sm flex flex-col items-center justify-center text-center flex-shrink-0;
-    border: 1px solid rgba(0, 0, 0, 0.1); /* 아주 얇은 검정색 테두리 */
-    overflow: hidden;
-    background-clip: padding-box;
-  }
-  
-  .longouter-upload-icon {
-    @apply mb-4 text-rose-500;
-  }
-  
-  .longouter-upload-label {
-    @apply text-lg font-semibold text-gray-800 flex items-center gap-2;
-  }
-  
-  .longouter-upload-subtext {
-    @apply text-sm text-gray-500 mt-2;
-  }
-  
-  .longouter-slider-wrapper {
-    @apply w-full max-w-md mx-auto mb-6;
-  }
-  
+.longouter-row {
+  @apply flex flex-row items-start gap-4 mb-6 w-full;
+}
+
+.longouter-box {
+  @apply w-[160px] h-[160px] bg-gray-50 rounded-xl p-4 shadow-sm flex flex-col items-center justify-center text-center flex-shrink-0;
+  overflow: hidden;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.1); /* 아주 얇은 검정색 테두리 */
+}
+
+.longouter-icon {
+  @apply mb-2 text-rose-500;
+}
+
+.longouter-label {
+  @apply text-sm font-medium text-gray-800;
+}
+
+.longouter-subtext {
+  @apply text-xs text-gray-500;
+}
+
+.longouter-slider-wrapper {
+  @apply flex-1 overflow-hidden;
+}

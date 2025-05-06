@@ -9,7 +9,8 @@ const ActionButton = ({
   onePieceImage,
   outerImage,
   innerImage,
-  longOuterImage, // ✅ 추가
+  longOuterImage,
+  innerwearImage,
   setLoading,
   setResultImage,
   setCancelRequested
@@ -44,38 +45,52 @@ const ActionButton = ({
             dress_url: onePieceImage
           })
         });
-      } else if (mode === 'longOuter') { // ✅ 추가
+
+      } else if (mode === 'longOuter') {
         if (!longOuterImage) {
           alert('롱아우터 사진을 업로드해주세요!');
           setLoading(false);
           return;
         }
 
-        response = await fetch(`${apiUrl}/dress`, {
+        const payload = {
+          model_url: bodyImage,
+          coat_url: longOuterImage
+        };
+
+        if (innerwearImage) {
+          payload.inner_url = innerwearImage;
+        }
+
+        response = await fetch(`${apiUrl}/coat`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            model_url: bodyImage,
-            dress_url: longOuterImage
-          })
+          body: JSON.stringify(payload)
         });
+
       } else if (mode === 'layered') {
-        if (!outerImage || !innerImage) {
-          alert('아우터와 이너 사진을 모두 업로드해주세요!');
+        if (!outerImage) {
+          alert('아우터 사진을 업로드해주세요!');
           setLoading(false);
           return;
+        }
+
+        const payload = {
+          model_url: bodyImage,
+          outer_url: outerImage,
+          offset: 0
+        };
+
+        if (innerImage) {
+          payload.inner_url = innerImage;
         }
 
         response = await fetch(`${apiUrl}/layered`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            model_url: bodyImage,
-            outer_url: outerImage,
-            inner_url: innerImage,
-            offset: 0
-          })
+          body: JSON.stringify(payload)
         });
+
       } else {
         if (!topImage && !bottomImage) {
           alert('최소한 하나의 의류(상의 또는 하의)를 업로드해주세요!');

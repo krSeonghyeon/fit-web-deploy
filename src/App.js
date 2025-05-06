@@ -25,6 +25,7 @@ function App() {
   const [outerImage, setOuterImage] = useState(null);
   const [innerImage, setInnerImage] = useState(null);
   const [longOuterImage, setLongOuterImage] = useState(null);
+  const [innerwearImage, setInnerwearImage] = useState(null);
   const [resultImage, setResultImage] = useState(null);
   const [fromHistory, setFromHistory] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -43,6 +44,7 @@ function App() {
     setOuterImage(null);
     setInnerImage(null);
     setLongOuterImage(null);
+    setInnerwearImage(null);
     setResultImage(null);
     setFromHistory(false);
   };
@@ -77,7 +79,10 @@ function App() {
       case 'longOuter':
         return (
           <LongOuterSection
+            longOuterImage={longOuterImage}
             setLongOuterImage={setLongOuterImage}
+            innerwearImage={innerwearImage}
+            setInnerwearImage={setInnerwearImage}
           />
         );
       case 'history':
@@ -136,6 +141,7 @@ function App() {
               outerImage={outerImage}
               innerImage={innerImage}
               longOuterImage={longOuterImage}
+              innerwearImage={innerwearImage}
               setLoading={setLoading}
               setResultImage={setResultImage}
               cancelRequested={cancelRequested}
@@ -154,12 +160,10 @@ function App() {
           showBackButton={!loading && mode !== 'common'}
           onBack={() => {
             if (mode === 'result' && fromHistory) {
-              // ✅ 기록에서 온 결과일 경우 → 기록으로 돌아가기
               setResultImage(null);
               setFromHistory(false);
               setMode('history');
             } else {
-              // ✅ 일반적인 경우 → common으로
               setResultImage(null);
               setFromHistory(false);
               setMode('common');
