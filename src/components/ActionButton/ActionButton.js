@@ -13,11 +13,14 @@ const ActionButton = ({
   innerwearImage,
   setLoading,
   setResultImage,
-  setCancelRequested
+  setCancelRequested,
+  extraOptionsOpen // ✅ 받아옴
 }) => {
+  const shouldHide = (mode === 'topBottom' || mode === 'onePiece') && extraOptionsOpen;
+  if (shouldHide) return null;
+
   const handleClick = async () => {
     console.log('🪄 버튼 클릭됨');
-
     if (!bodyImage) {
       alert('전신 사진을 업로드해주세요!');
       return;
@@ -45,7 +48,6 @@ const ActionButton = ({
             dress_url: onePieceImage
           })
         });
-
       } else if (mode === 'longOuter') {
         if (!longOuterImage) {
           alert('롱아우터 사진을 업로드해주세요!');
@@ -53,21 +55,14 @@ const ActionButton = ({
           return;
         }
 
-        const payload = {
-          model_url: bodyImage,
-          coat_url: longOuterImage
-        };
-
-        if (innerwearImage) {
-          payload.inner_url = innerwearImage;
-        }
+        const payload = { model_url: bodyImage, coat_url: longOuterImage };
+        if (innerwearImage) payload.inner_url = innerwearImage;
 
         response = await fetch(`${apiUrl}/coat`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
-
       } else if (mode === 'layered') {
         if (!outerImage) {
           alert('아우터 사진을 업로드해주세요!');
@@ -75,30 +70,22 @@ const ActionButton = ({
           return;
         }
 
-        const payload = {
-          model_url: bodyImage,
-          outer_url: outerImage,
-          offset: 0
-        };
-
-        if (innerImage) {
-          payload.inner_url = innerImage;
-        }
+        const payload = { model_url: bodyImage, outer_url: outerImage, offset: 0 };
+        if (innerImage) payload.inner_url = innerImage;
 
         response = await fetch(`${apiUrl}/layered`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
-
       } else {
         if (!topImage && !bottomImage) {
-          alert('최소한 하나의 의류(상의 또는 하의)를 업로드해주세요!');
+          alert('최소한 하나의 의류를 업로드해주세요!');
           setLoading(false);
           return;
         }
 
-        const body = {
+        const payload = {
           model_url: bodyImage,
           upper_url: topImage || null,
           lower_url: bottomImage || null
@@ -107,7 +94,7 @@ const ActionButton = ({
         response = await fetch(`${apiUrl}/sum`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(body)
+          body: JSON.stringify(payload)
         });
       }
 

@@ -34,6 +34,7 @@ const LongOuterUploadSection = ({ setLongOuterImage, setInnerwearImage, longOute
 
   const innerwearRecommended = [
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/427ca040-f318-4a9b-9258-7a7820b32f3f.png',
+    'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-06/c0b14a83-795b-4e0a-93b5-f0cc14a18075.png',
   ];
 
   return (

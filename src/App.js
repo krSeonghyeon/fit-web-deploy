@@ -30,6 +30,7 @@ function App() {
   const [fromHistory, setFromHistory] = useState(false);
   const [loading, setLoading] = useState(false);
   const [cancelRequested, setCancelRequested] = useState(false);
+  const [extraOptionsOpen, setExtraOptionsOpen] = useState(false); // ✅ 추가된 상태
 
   const handleModeChange = (newMode) => {
     if (!bodyImage && newMode !== 'common' && newMode !== 'history') {
@@ -131,7 +132,14 @@ function App() {
         {mode !== 'history' && mode !== 'result' && (
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <CategorySelector mode={mode} setMode={handleModeChange} />
-            <ExtraOptions />
+
+            {/* ✅ open / setOpen props 추가 */}
+            <ExtraOptions
+              mode={mode}
+              open={extraOptionsOpen}
+              setOpen={setExtraOptionsOpen}
+            />
+
             <ActionButton
               mode={mode}
               bodyImage={bodyImage}
@@ -146,6 +154,7 @@ function App() {
               setResultImage={setResultImage}
               cancelRequested={cancelRequested}
               setCancelRequested={setCancelRequested}
+              extraOptionsOpen={extraOptionsOpen} // ✅ 전달
             />
           </div>
         )}
