@@ -30,7 +30,12 @@ function App() {
   const [fromHistory, setFromHistory] = useState(false);
   const [loading, setLoading] = useState(false);
   const [cancelRequested, setCancelRequested] = useState(false);
-  const [extraOptionsOpen, setExtraOptionsOpen] = useState(false); // ✅ 추가된 상태
+  const [extraOptionsOpen, setExtraOptionsOpen] = useState(false);
+
+  // ✅ 기장 조절 상태 분리
+  const [upperLength, setUpperLength] = useState(0);  // 상의
+  const [lowerLength, setLowerLength] = useState(0);  // 하의
+  const [dressLength, setDressLength] = useState(0);  // 원피스
 
   const handleModeChange = (newMode) => {
     if (!bodyImage && newMode !== 'common' && newMode !== 'history') {
@@ -113,7 +118,7 @@ function App() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+        transition={{ duration: 0.4 }}
         style={{
           flex: '1 1 auto',
           display: 'flex',
@@ -133,11 +138,16 @@ function App() {
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <CategorySelector mode={mode} setMode={handleModeChange} />
 
-            {/* ✅ open / setOpen props 추가 */}
             <ExtraOptions
               mode={mode}
               open={extraOptionsOpen}
               setOpen={setExtraOptionsOpen}
+              upperLength={upperLength}
+              setUpperLength={setUpperLength}
+              lowerLength={lowerLength}
+              setLowerLength={setLowerLength}
+              dressLength={dressLength}             // ✅ 전달
+              setDressLength={setDressLength}       // ✅ 전달
             />
 
             <ActionButton
@@ -154,7 +164,11 @@ function App() {
               setResultImage={setResultImage}
               cancelRequested={cancelRequested}
               setCancelRequested={setCancelRequested}
-              extraOptionsOpen={extraOptionsOpen} // ✅ 전달
+              extraOptionsOpen={extraOptionsOpen}
+              upperLength={upperLength}
+              lowerLength={lowerLength}
+              dressLength={dressLength}           // ✅ 전달
+              setMode={setMode}
             />
           </div>
         )}
@@ -188,32 +202,20 @@ function App() {
                 setLoading(false);
               }}
             />
-          ) : resultImage && (!cancelRequested || fromHistory) ? (
-            (() => {
-              if (!fromHistory) {
-                const history = JSON.parse(localStorage.getItem('historyImages') || '[]');
-                if (!history.includes(resultImage)) {
-                  history.unshift(resultImage);
-                  localStorage.setItem('historyImages', JSON.stringify(history.slice(0, 30)));
+          ) : mode === 'result' && resultImage ? (
+            <ResultPage
+              imageUrl={resultImage}
+              onBack={() => {
+                if (fromHistory) {
+                  setResultImage(null);
+                  setFromHistory(false);
+                  setMode('history');
+                } else {
+                  setResultImage(null);
+                  setMode('common');
                 }
-              }
-
-              return (
-                <ResultPage
-                  imageUrl={resultImage}
-                  onBack={() => {
-                    if (fromHistory) {
-                      setResultImage(null);
-                      setFromHistory(false);
-                      setMode('history');
-                    } else {
-                      setResultImage(null);
-                      setMode('common');
-                    }
-                  }}
-                />
-              );
-            })()
+              }}
+            />
           ) : (
             renderAnimatedContent()
           )}
