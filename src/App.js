@@ -32,18 +32,19 @@ function App() {
   const [cancelRequested, setCancelRequested] = useState(false);
   const [extraOptionsOpen, setExtraOptionsOpen] = useState(false);
 
-  // ✅ 기장 조절 상태 분리
-  const [upperLength, setUpperLength] = useState(0);  // 상의
-  const [lowerLength, setLowerLength] = useState(0);  // 하의
-  const [dressLength, setDressLength] = useState(0);  // 원피스
+  const [upperLength, setUpperLength] = useState(0);
+  const [lowerLength, setLowerLength] = useState(0);
+  const [dressLength, setDressLength] = useState(0);
 
   const handleModeChange = (newMode) => {
     if (!bodyImage && newMode !== 'common' && newMode !== 'history') {
       alert('전신 사진을 먼저 업로드해주세요!');
       return;
     }
+
     setPrevMode(mode);
     setMode(newMode);
+    setExtraOptionsOpen(false);
     setTopImage(null);
     setBottomImage(null);
     setOnePieceImage(null);
@@ -58,56 +59,17 @@ function App() {
   const renderSectionContent = () => {
     switch (mode) {
       case 'topBottom':
-        return (
-          <UploadSection
-            topImage={topImage}
-            setTopImage={setTopImage}
-            bottomImage={bottomImage}
-            setBottomImage={setBottomImage}
-          />
-        );
+        return <UploadSection topImage={topImage} setTopImage={setTopImage} bottomImage={bottomImage} setBottomImage={setBottomImage} />;
       case 'onePiece':
-        return (
-          <OnePieceSection
-            onePieceImage={onePieceImage}
-            setOnePieceImage={setOnePieceImage}
-          />
-        );
+        return <OnePieceSection onePieceImage={onePieceImage} setOnePieceImage={setOnePieceImage} />;
       case 'layered':
-        return (
-          <LayeredSection
-            outerImage={outerImage}
-            setOuterImage={setOuterImage}
-            innerImage={innerImage}
-            setInnerImage={setInnerImage}
-          />
-        );
+        return <LayeredSection outerImage={outerImage} setOuterImage={setOuterImage} innerImage={innerImage} setInnerImage={setInnerImage} />;
       case 'longOuter':
-        return (
-          <LongOuterSection
-            longOuterImage={longOuterImage}
-            setLongOuterImage={setLongOuterImage}
-            innerwearImage={innerwearImage}
-            setInnerwearImage={setInnerwearImage}
-          />
-        );
+        return <LongOuterSection longOuterImage={longOuterImage} setLongOuterImage={setLongOuterImage} innerwearImage={innerwearImage} setInnerwearImage={setInnerwearImage} />;
       case 'history':
-        return (
-          <HistorySection
-            onSelect={(url) => {
-              setResultImage(url);
-              setFromHistory(true);
-              setMode('result');
-            }}
-          />
-        );
+        return <HistorySection onSelect={(url) => { setResultImage(url); setFromHistory(true); setMode('result'); }} />;
       default:
-        return (
-          <CommonSection
-            imageUrl={bodyImage}
-            onUpload={setBodyImage}
-          />
-        );
+        return <CommonSection imageUrl={bodyImage} onUpload={setBodyImage} />;
     }
   };
 
@@ -146,8 +108,8 @@ function App() {
               setUpperLength={setUpperLength}
               lowerLength={lowerLength}
               setLowerLength={setLowerLength}
-              dressLength={dressLength}             // ✅ 전달
-              setDressLength={setDressLength}       // ✅ 전달
+              dressLength={dressLength}
+              setDressLength={setDressLength}
             />
 
             <ActionButton
@@ -167,7 +129,7 @@ function App() {
               extraOptionsOpen={extraOptionsOpen}
               upperLength={upperLength}
               lowerLength={lowerLength}
-              dressLength={dressLength}           // ✅ 전달
+              dressLength={dressLength}
               setMode={setMode}
             />
           </div>
