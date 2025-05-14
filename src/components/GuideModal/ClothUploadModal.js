@@ -8,6 +8,18 @@ export default function ClothUploadModal({ onClose, onSuccess, clothType }) {
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef();
 
+  const exampleImageMap = {
+    top: 'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/60b5b477-fb92-4716-8d9b-2933d2a8e0bb.png',
+    bottom: 'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/a5724a9f-5e9a-481d-8967-9406dcc36787.jpg',
+    onePiece: 'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/21452436-7aa7-4037-9ae5-ccc85c31ab78.png',
+    outer: 'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/ce24422f-2e83-4393-bd5f-efd2300f883f.png',
+    inner: 'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/427ca040-f318-4a9b-9258-7a7820b32f3f.png',
+    longOuter: 'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-06/3668fd28-9b01-4de5-9415-933966f6bc00.png',
+    innerwear: 'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/427ca040-f318-4a9b-9258-7a7820b32f3f.png',
+  };
+
+  const exampleUrl = exampleImageMap[clothType];
+
   const handleFileSelect = async (file) => {
     if (!file) return;
     setIsUploading(true);
@@ -48,10 +60,13 @@ export default function ClothUploadModal({ onClose, onSuccess, clothType }) {
             </div>
 
             <div className="example-box">
-              <img
-                src="https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/a5724a9f-5e9a-481d-8967-9406dcc36787.jpg"
-                alt="예시 사진"
-              />
+              {exampleUrl ? (
+                <img src={exampleUrl} alt="예시 사진" />
+              ) : (
+                <div className="upload-placeholder">
+                  <p>예시 이미지를 불러올 수 없습니다.</p>
+                </div>
+              )}
             </div>
 
             <div className="modal-guideline-title">의상 사진 가이드라인</div>

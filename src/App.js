@@ -121,11 +121,11 @@ function App() {
         return <HistorySection onSelect={(url) => { setResultImage(url); setFromHistory(true); setMode('result'); }} />;
       default:
         return (
-          <CommonUploadSection
-            imageUrl={bodyImage}
-            onUpload={setBodyImage}
-            onRequestModelModal={() => setUploadModalType('model')}
-          />
+ <CommonUploadSection
+  imageUrl={bodyImage}
+  onUpload={setBodyImage}
+  onRequestModelModal={() => setUploadModalType({ type: 'model' })} // ✅ 여기 수정
+/>
         );
     }
   };
