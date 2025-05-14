@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './components/AppWrapper/AppWrapper.css';
 import Header from './components/Header/Header';
-import CommonSection from './components/CommonSection/CommonSection';
+import CommonUploadSection from './components/CommonSection/CommonSection'; 
 import OnePieceSection from './components/OnePieceSection/OnePieceSection';
 import UploadSection from './components/UploadSection/UploadSection';
 import LayeredSection from './components/LayeredSection/LayeredSection';
@@ -13,11 +13,13 @@ import BottomNav from './components/BottomNav/BottomNav';
 import ResultPage from './components/ResultPage/ResultPage';
 import LoadingScreen from './components/LoadingScreen/LoadingScreen';
 import HistorySection from './components/HistorySection/HistorySection';
+import GuideModal from './components/GuideModal';
 import { AnimatePresence, motion } from 'framer-motion';
 
 function App() {
   const [mode, setMode] = useState('common');
   const [prevMode, setPrevMode] = useState(null);
+
   const [bodyImage, setBodyImage] = useState(null);
   const [topImage, setTopImage] = useState(null);
   const [bottomImage, setBottomImage] = useState(null);
@@ -35,6 +37,8 @@ function App() {
   const [upperLength, setUpperLength] = useState(0);
   const [lowerLength, setLowerLength] = useState(0);
   const [dressLength, setDressLength] = useState(0);
+
+  const [uploadModalType, setUploadModalType] = useState(null); // 'model' or 'cloth'
 
   const handleModeChange = (newMode) => {
     if (!bodyImage && newMode !== 'common' && newMode !== 'history') {
@@ -69,7 +73,13 @@ function App() {
       case 'history':
         return <HistorySection onSelect={(url) => { setResultImage(url); setFromHistory(true); setMode('result'); }} />;
       default:
-        return <CommonSection imageUrl={bodyImage} onUpload={setBodyImage} />;
+        return (
+          <CommonUploadSection // ✅ 여기 변경됨
+            imageUrl={bodyImage}
+            onUpload={setBodyImage}
+            onRequestModelModal={() => setUploadModalType('model')}
+          />
+        );
     }
   };
 
@@ -184,6 +194,16 @@ function App() {
         </div>
         <BottomNav setMode={handleModeChange} />
       </div>
+
+      <GuideModal
+        type={uploadModalType}
+        isOpen={!!uploadModalType}
+        onClose={() => setUploadModalType(null)}
+        onSuccess={(url) => {
+          setBodyImage(url);
+          setUploadModalType(null);
+        }}
+      />
     </div>
   );
 }

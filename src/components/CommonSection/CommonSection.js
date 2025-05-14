@@ -1,33 +1,10 @@
+// src/components/CommonSection/CommonUploadSection.js
 import './CommonSection.css';
-import { useRef } from 'react';
-import axios from 'axios';
 import { PiUploadSimpleBold } from 'react-icons/pi';
 import { IoBody } from 'react-icons/io5';
 import RecentPreviewSlider from '../RecentPreviewSlider/RecentPreviewSlider';
 
-const CommonUploadSection = ({ onUpload, imageUrl }) => {
-  const fileInputRef = useRef(null);
-
-  const handleFileChange = async (event) => {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    try {
-      const apiUrl = process.env.REACT_APP_API_URL;
-      const formData = new FormData();
-      formData.append('file', file);
-
-      const response = await axios.post(`${apiUrl}/upload`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
-
-      const uploadedUrl = response.data.url;
-      if (onUpload) onUpload(uploadedUrl);
-    } catch (error) {
-      console.error('이미지 업로드 실패:', error);
-    }
-  };
-
+const CommonUploadSection = ({ onUpload, imageUrl, onRequestModelModal }) => {
   const recommendedImages = [
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/5f2d00db-7660-47ba-a765-0cc1c4817a69.jpg',
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/4d97c180-d716-413d-a213-59906df1a650.jpg',
@@ -43,7 +20,7 @@ const CommonUploadSection = ({ onUpload, imageUrl }) => {
     <div className="common-upload-container">
       <div
         className="common-upload-box relative"
-        onClick={() => fileInputRef.current.click()}
+        onClick={() => onRequestModelModal?.()} // ✅ 모달만 띄움
         style={{
           backgroundImage: imageUrl ? `url(${imageUrl})` : 'none',
           backgroundSize: 'contain',
@@ -63,13 +40,7 @@ const CommonUploadSection = ({ onUpload, imageUrl }) => {
           </>
         )}
       </div>
-      <input
-        type="file"
-        accept="image/*"
-        ref={fileInputRef}
-        style={{ display: 'none' }}
-        onChange={handleFileChange}
-      />
+
       <div className="common-slider-wrapper">
         <RecentPreviewSlider
           title="추천 모델"

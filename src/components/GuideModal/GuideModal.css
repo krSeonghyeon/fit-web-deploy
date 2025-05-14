@@ -1,0 +1,186 @@
+/* ✅ 오버레이 전체 배경 */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* ✅ 모달 컨테이너 */
+.modal-container {
+  max-width: 360px;
+  width: 100%;
+  height: 95vh;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ✅ 슬라이더 */
+.modal-slider {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.4s ease-in-out;
+}
+
+/* ✅ 페이지 */
+.modal-page {
+  width: 100%;
+  flex-shrink: 0;
+  padding: 24px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  gap: 8px;
+}
+
+/* ✅ 인디케이터 */
+.modal-step-indicator {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.modal-step-box {
+  width: 32px;
+  height: 8px;
+  border-radius: 9999px;
+  background-color: #d1d5db;
+  transition: background-color 0.3s;
+}
+
+.modal-step-box.active {
+  background: linear-gradient(135deg, #7f5af0, #2cb2ff);
+}
+
+/* ✅ 이미지 박스 */
+.example-box {
+  width: 100%;
+  aspect-ratio: 3 / 4.5;
+  background-color: #f3f4f6;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  margin-bottom: 5px;
+  color: #9ca3af;
+  font-size: 0.95rem;
+  overflow: hidden;
+}
+
+.example-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+/* ✅ 안내 제목 */
+.modal-guideline-title {
+  font-weight: 600;
+  font-size: 1.05rem;
+  margin-bottom: 12px;
+  text-align: center;
+  color: #111827;
+}
+
+/* ✅ 체크 리스트 */
+.modal-guideline-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  text-align: left;
+  width: fit-content;
+  max-width: 260px;
+}
+
+.modal-guideline-list li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.modal-guideline-list li::before {
+  content: none;
+}
+
+/* ✅ 체크 아이콘 (기본) */
+.check-icon {
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(135deg, #7f5af0, #2cb2ff);
+  color: white;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+/* ✅ Step 1 전용 회색 배경 */
+.step-1 .check-icon {
+  background: #d1d5db;
+  color: #374151;
+}
+
+/* ✅ 버튼 영역 */
+.modal-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+  width: 100%;
+}
+
+.modal-buttons button {
+  flex: 1;
+  padding: 10px 12px;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+/* ✅ 다음 버튼 */
+.modal-buttons button:first-child {
+  background: linear-gradient(135deg, #7f5af0, #2cb2ff);
+  color: white !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 12px rgba(127, 90, 240, 0.3);
+}
+
+/* ✅ 취소 버튼 */
+.modal-buttons button:last-child {
+  background-color: #f3f4f6;
+  color: #111827;
+  font-weight: 700;
+}
+
+/* ✅ 업로드 안내 문구 */
+.upload-placeholder {
+  text-align: center;
+  color: #9ca3af;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
