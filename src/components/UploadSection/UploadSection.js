@@ -1,32 +1,10 @@
 import './UploadSection.css';
-import { useRef } from 'react';
-import axios from 'axios';
+import { PiUploadSimpleBold } from 'react-icons/pi';
 import { FaTshirt } from 'react-icons/fa';
-import { PiPants, PiUploadSimpleBold } from 'react-icons/pi';
+import { PiPants } from 'react-icons/pi';
 import RecentPreviewSlider from '../RecentPreviewSlider/RecentPreviewSlider';
 
-const UploadSection = ({ setTopImage, setBottomImage, topImage, bottomImage }) => {
-  const topInputRef = useRef(null);
-  const bottomInputRef = useRef(null);
-
-  const handleUpload = async (event, notifyParent) => {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    const formData = new FormData();
-    formData.append('file', file);
-
-    try {
-      const apiUrl = process.env.REACT_APP_API_URL;
-      const response = await axios.post(`${apiUrl}/upload`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
-      notifyParent(response.data.url);
-    } catch (error) {
-      console.error('업로드 실패:', error);
-    }
-  };
-
+const UploadSection = ({ topImage, setTopImage, bottomImage, setBottomImage }) => {
   const topRecommended = [
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/33345137-efc3-42a1-b5cb-7d16918b4673.jpg',
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/60b5b477-fb92-4716-8d9b-2933d2a8e0bb.png',
@@ -47,15 +25,15 @@ const UploadSection = ({ setTopImage, setBottomImage, topImage, bottomImage }) =
       <div className="upload-row">
         <div
           className="upload-box"
-          onClick={() => topInputRef.current.click()}
+          onClick={() => setTopImage('modal')} // ✅ 모달 트리거
           style={{
-            backgroundImage: topImage ? `url(${topImage})` : 'none',
+            backgroundImage: topImage && topImage !== 'modal' ? `url(${topImage})` : 'none',
             backgroundSize: 'contain',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
           }}
         >
-          {!topImage && (
+          {!topImage || topImage === 'modal' ? (
             <>
               <div className="upload-icon"><FaTshirt size={24} /></div>
               <p className="upload-label flex items-center gap-1 mb-2">
@@ -63,7 +41,7 @@ const UploadSection = ({ setTopImage, setBottomImage, topImage, bottomImage }) =
               </p>
               <p className="upload-subtext mt-1">상의 사진을 <br />선택하세요</p>
             </>
-          )}
+          ) : null}
         </div>
         <div className="upload-slider-wrapper">
           <RecentPreviewSlider
@@ -72,28 +50,21 @@ const UploadSection = ({ setTopImage, setBottomImage, topImage, bottomImage }) =
             onSelect={setTopImage}
           />
         </div>
-        <input
-          type="file"
-          accept="image/*"
-          ref={topInputRef}
-          style={{ display: 'none' }}
-          onChange={(e) => handleUpload(e, setTopImage)}
-        />
       </div>
 
       {/* 하의 */}
       <div className="upload-row">
         <div
           className="upload-box"
-          onClick={() => bottomInputRef.current.click()}
+          onClick={() => setBottomImage('modal')} // ✅ 모달 트리거
           style={{
-            backgroundImage: bottomImage ? `url(${bottomImage})` : 'none',
+            backgroundImage: bottomImage && bottomImage !== 'modal' ? `url(${bottomImage})` : 'none',
             backgroundSize: 'contain',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
           }}
         >
-          {!bottomImage && (
+          {!bottomImage || bottomImage === 'modal' ? (
             <>
               <div className="upload-icon"><PiPants size={24} /></div>
               <p className="upload-label flex items-center gap-1 mb-2">
@@ -101,7 +72,7 @@ const UploadSection = ({ setTopImage, setBottomImage, topImage, bottomImage }) =
               </p>
               <p className="upload-subtext mt-1">하의 사진을<br /> 선택하세요</p>
             </>
-          )}
+          ) : null}
         </div>
         <div className="upload-slider-wrapper">
           <RecentPreviewSlider
@@ -110,13 +81,6 @@ const UploadSection = ({ setTopImage, setBottomImage, topImage, bottomImage }) =
             onSelect={setBottomImage}
           />
         </div>
-        <input
-          type="file"
-          accept="image/*"
-          ref={bottomInputRef}
-          style={{ display: 'none' }}
-          onChange={(e) => handleUpload(e, setBottomImage)}
-        />
       </div>
     </>
   );

@@ -1,32 +1,14 @@
 import './LongOuterSection.css';
-import { useRef } from 'react';
-import axios from 'axios';
 import { GiLabCoat, GiUnderwearShorts } from 'react-icons/gi';
 import { PiUploadSimpleBold } from 'react-icons/pi';
 import RecentPreviewSlider from '../RecentPreviewSlider/RecentPreviewSlider';
 
-const LongOuterUploadSection = ({ setLongOuterImage, setInnerwearImage, longOuterImage, innerwearImage }) => {
-  const longOuterInputRef = useRef(null);
-  const innerwearInputRef = useRef(null);
-
-  const handleUpload = async (event, notifyParent) => {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    const formData = new FormData();
-    formData.append('file', file);
-
-    try {
-      const apiUrl = process.env.REACT_APP_API_URL;
-      const response = await axios.post(`${apiUrl}/upload`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
-      notifyParent(response.data.url);
-    } catch (error) {
-      console.error('업로드 실패:', error);
-    }
-  };
-
+const LongOuterUploadSection = ({
+  setLongOuterImage,
+  setInnerwearImage,
+  longOuterImage,
+  innerwearImage
+}) => {
   const longOuterRecommended = [
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-06/3668fd28-9b01-4de5-9415-933966f6bc00.png',
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-06/8ca847b6-4e9b-42d7-a79a-a91cbc996b0a.png',
@@ -43,23 +25,28 @@ const LongOuterUploadSection = ({ setLongOuterImage, setInnerwearImage, longOute
       <div className="upload-row">
         <div
           className="upload-box"
-          onClick={() => longOuterInputRef.current.click()}
+          onClick={() => setLongOuterImage('modal')}
           style={{
-            backgroundImage: longOuterImage ? `url(${longOuterImage})` : 'none',
+            backgroundImage:
+              longOuterImage && longOuterImage !== 'modal'
+                ? `url(${longOuterImage})`
+                : 'none',
             backgroundSize: 'contain',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
           }}
         >
-          {!longOuterImage && (
+          {!longOuterImage || longOuterImage === 'modal' ? (
             <>
-              <div className="upload-icon"><GiLabCoat size={24} /></div>
+              <div className="upload-icon">
+                <GiLabCoat size={24} />
+              </div>
               <p className="upload-label flex items-center gap-1 mb-2">
                 <PiUploadSimpleBold size={16} className="text-rose-500" /> 사진 선택
               </p>
               <p className="upload-subtext mt-1">롱아우터 사진을<br /> 선택하세요</p>
             </>
-          )}
+          ) : null}
         </div>
         <div className="upload-slider-wrapper">
           <RecentPreviewSlider
@@ -68,36 +55,34 @@ const LongOuterUploadSection = ({ setLongOuterImage, setInnerwearImage, longOute
             onSelect={setLongOuterImage}
           />
         </div>
-        <input
-          type="file"
-          accept="image/*"
-          ref={longOuterInputRef}
-          style={{ display: 'none' }}
-          onChange={(e) => handleUpload(e, setLongOuterImage)}
-        />
       </div>
 
       {/* 내의 */}
       <div className="upload-row">
         <div
           className="upload-box"
-          onClick={() => innerwearInputRef.current.click()}
+          onClick={() => setInnerwearImage('modal')}
           style={{
-            backgroundImage: innerwearImage ? `url(${innerwearImage})` : 'none',
+            backgroundImage:
+              innerwearImage && innerwearImage !== 'modal'
+                ? `url(${innerwearImage})`
+                : 'none',
             backgroundSize: 'contain',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
           }}
         >
-          {!innerwearImage && (
+          {!innerwearImage || innerwearImage === 'modal' ? (
             <>
-              <div className="upload-icon"><GiUnderwearShorts size={24} /></div>
+              <div className="upload-icon">
+                <GiUnderwearShorts size={24} />
+              </div>
               <p className="upload-label flex items-center gap-1 mb-2">
                 <PiUploadSimpleBold size={16} className="text-rose-500" /> 사진 선택
               </p>
               <p className="upload-subtext mt-1">이너 사진을<br /> 선택하세요</p>
             </>
-          )}
+          ) : null}
         </div>
         <div className="upload-slider-wrapper">
           <RecentPreviewSlider
@@ -106,13 +91,6 @@ const LongOuterUploadSection = ({ setLongOuterImage, setInnerwearImage, longOute
             onSelect={setInnerwearImage}
           />
         </div>
-        <input
-          type="file"
-          accept="image/*"
-          ref={innerwearInputRef}
-          style={{ display: 'none' }}
-          onChange={(e) => handleUpload(e, setInnerwearImage)}
-        />
       </div>
     </>
   );

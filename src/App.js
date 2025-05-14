@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './components/AppWrapper/AppWrapper.css';
 import Header from './components/Header/Header';
-import CommonUploadSection from './components/CommonSection/CommonSection'; 
+import CommonUploadSection from './components/CommonSection/CommonSection';
 import OnePieceSection from './components/OnePieceSection/OnePieceSection';
 import UploadSection from './components/UploadSection/UploadSection';
 import LayeredSection from './components/LayeredSection/LayeredSection';
@@ -38,7 +38,7 @@ function App() {
   const [lowerLength, setLowerLength] = useState(0);
   const [dressLength, setDressLength] = useState(0);
 
-  const [uploadModalType, setUploadModalType] = useState(null); // 'model' or 'cloth'
+  const [uploadModalType, setUploadModalType] = useState(null); // null | 'model' | { type: 'cloth', clothType: 'top' | 'bottom' | ... }
 
   const handleModeChange = (newMode) => {
     if (!bodyImage && newMode !== 'common' && newMode !== 'history') {
@@ -63,18 +63,65 @@ function App() {
   const renderSectionContent = () => {
     switch (mode) {
       case 'topBottom':
-        return <UploadSection topImage={topImage} setTopImage={setTopImage} bottomImage={bottomImage} setBottomImage={setBottomImage} />;
+        return (
+          <UploadSection
+            topImage={topImage}
+            setTopImage={(url) => {
+              if (url === 'modal') return setUploadModalType({ type: 'cloth', clothType: 'top' });
+              setTopImage(url);
+            }}
+            bottomImage={bottomImage}
+            setBottomImage={(url) => {
+              if (url === 'modal') return setUploadModalType({ type: 'cloth', clothType: 'bottom' });
+              setBottomImage(url);
+            }}
+          />
+        );
       case 'onePiece':
-        return <OnePieceSection onePieceImage={onePieceImage} setOnePieceImage={setOnePieceImage} />;
+        return (
+          <OnePieceSection
+            onePieceImage={onePieceImage}
+            setOnePieceImage={(url) => {
+              if (url === 'modal') return setUploadModalType({ type: 'cloth', clothType: 'onePiece' });
+              setOnePieceImage(url);
+            }}
+          />
+        );
       case 'layered':
-        return <LayeredSection outerImage={outerImage} setOuterImage={setOuterImage} innerImage={innerImage} setInnerImage={setInnerImage} />;
+        return (
+          <LayeredSection
+            outerImage={outerImage}
+            setOuterImage={(url) => {
+              if (url === 'modal') return setUploadModalType({ type: 'cloth', clothType: 'outer' });
+              setOuterImage(url);
+            }}
+            innerImage={innerImage}
+            setInnerImage={(url) => {
+              if (url === 'modal') return setUploadModalType({ type: 'cloth', clothType: 'inner' });
+              setInnerImage(url);
+            }}
+          />
+        );
       case 'longOuter':
-        return <LongOuterSection longOuterImage={longOuterImage} setLongOuterImage={setLongOuterImage} innerwearImage={innerwearImage} setInnerwearImage={setInnerwearImage} />;
+        return (
+          <LongOuterSection
+            longOuterImage={longOuterImage}
+            setLongOuterImage={(url) => {
+              if (url === 'modal') return setUploadModalType({ type: 'cloth', clothType: 'longOuter' });
+              setLongOuterImage(url);
+            }}
+            innerwearImage={innerwearImage}
+            setInnerwearImage={(url) => {
+              if (url === 'modal') return setUploadModalType({ type: 'cloth', clothType: 'innerwear' });
+              setInnerwearImage(url);
+            }}
+          />
+        );
       case 'history':
         return <HistorySection onSelect={(url) => { setResultImage(url); setFromHistory(true); setMode('result'); }} />;
       default:
         return (
-          <CommonUploadSection // ✅ 여기 변경됨
+          <CommonUploadSection
             imageUrl={bodyImage}
             onUpload={setBodyImage}
             onRequestModelModal={() => setUploadModalType('model')}
@@ -196,11 +243,22 @@ function App() {
       </div>
 
       <GuideModal
-        type={uploadModalType}
+        type={uploadModalType?.type}
+        clothType={uploadModalType?.clothType}
         isOpen={!!uploadModalType}
         onClose={() => setUploadModalType(null)}
-        onSuccess={(url) => {
-          setBodyImage(url);
+        onSuccess={(clothType, url) => {
+          const setStateMap = {
+            top: setTopImage,
+            bottom: setBottomImage,
+            onePiece: setOnePieceImage,
+            outer: setOuterImage,
+            inner: setInnerImage,
+            longOuter: setLongOuterImage,
+            innerwear: setInnerwearImage,
+          };
+          const setter = setStateMap[clothType];
+          if (setter) setter(url);
           setUploadModalType(null);
         }}
       />
