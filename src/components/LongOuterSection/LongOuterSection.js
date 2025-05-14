@@ -1,5 +1,6 @@
 import './LongOuterSection.css';
-import { GiLabCoat, GiUnderwearShorts } from 'react-icons/gi';
+import { GiLabCoat } from 'react-icons/gi';
+import { FaTshirt } from 'react-icons/fa';
 import { PiUploadSimpleBold } from 'react-icons/pi';
 import RecentPreviewSlider from '../RecentPreviewSlider/RecentPreviewSlider';
 
@@ -75,7 +76,7 @@ const LongOuterUploadSection = ({
           {!innerwearImage || innerwearImage === 'modal' ? (
             <>
               <div className="upload-icon">
-                <GiUnderwearShorts size={24} />
+                <FaTshirt size={24} />
               </div>
               <p className="upload-label flex items-center gap-1 mb-2">
                 <PiUploadSimpleBold size={16} className="text-rose-500" /> 사진 선택
