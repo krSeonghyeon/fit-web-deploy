@@ -38,7 +38,37 @@ function App() {
   const [lowerLength, setLowerLength] = useState(0);
   const [dressLength, setDressLength] = useState(0);
 
-  const [uploadModalType, setUploadModalType] = useState(null); // null | 'model' | { type: 'cloth', clothType: 'top' | 'bottom' | ... }
+  const [uploadModalType, setUploadModalType] = useState(null);
+
+  // ✅ localStorage에서 초기값 로드
+  const getInitialGuideShownMap = () => {
+    try {
+      const stored = localStorage.getItem('guideShownMap');
+      return stored ? JSON.parse(stored) : {};
+    } catch {
+      return {};
+    }
+  };
+
+  const [guideShownMap, setGuideShownMap] = useState(() => ({
+    model: false,
+    top: false,
+    bottom: false,
+    onePiece: false,
+    outer: false,
+    inner: false,
+    longOuter: false,
+    innerwear: false,
+    ...getInitialGuideShownMap(),
+  }));
+
+  const markGuideAsSeen = (key) => {
+    setGuideShownMap((prev) => {
+      const updated = { ...prev, [key]: true };
+      localStorage.setItem('guideShownMap', JSON.stringify(updated));
+      return updated;
+    });
+  };
 
   const handleModeChange = (newMode) => {
     if (!bodyImage && newMode !== 'common' && newMode !== 'history') {
@@ -121,11 +151,11 @@ function App() {
         return <HistorySection onSelect={(url) => { setResultImage(url); setFromHistory(true); setMode('result'); }} />;
       default:
         return (
- <CommonUploadSection
-  imageUrl={bodyImage}
-  onUpload={setBodyImage}
-  onRequestModelModal={() => setUploadModalType({ type: 'model' })} // ✅ 여기 수정
-/>
+          <CommonUploadSection
+            imageUrl={bodyImage}
+            onUpload={setBodyImage}
+            onRequestModelModal={() => setUploadModalType({ type: 'model' })}
+          />
         );
     }
   };
@@ -246,6 +276,7 @@ function App() {
         type={uploadModalType?.type}
         clothType={uploadModalType?.clothType}
         isOpen={!!uploadModalType}
+        guideShownMap={guideShownMap}
         onClose={() => setUploadModalType(null)}
         onSuccess={(clothType, url) => {
           const setStateMap = {
@@ -259,6 +290,8 @@ function App() {
           };
           const setter = setStateMap[clothType];
           if (setter) setter(url);
+
+          markGuideAsSeen(clothType || 'model'); // ✅ localStorage 저장
           setUploadModalType(null);
         }}
       />
