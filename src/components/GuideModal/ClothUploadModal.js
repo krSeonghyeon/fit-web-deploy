@@ -6,6 +6,8 @@ export default function ClothUploadModal({ onClose, onSuccess, clothType, guideA
   const [previewUrl, setPreviewUrl] = useState(null);
   const [uploadedUrl, setUploadedUrl] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [isChecking, setIsChecking] = useState(false);
+  const [validationResult, setValidationResult] = useState(null);
   const fileInputRef = useRef();
 
   const exampleImageMap = {
@@ -18,11 +20,24 @@ export default function ClothUploadModal({ onClose, onSuccess, clothType, guideA
     innerwear: 'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/427ca040-f318-4a9b-9258-7a7820b32f3f.png',
   };
 
+  const clothTypeMap = {
+    top: 'upper',
+    outer: 'upper',
+    inner: 'upper',
+    innerwear: 'upper',
+    longOuter: 'upper',
+    bottom: 'lower',
+    onePiece: 'dress',
+  };
+
   const exampleUrl = exampleImageMap[clothType];
+  const convertedType = clothTypeMap[clothType];
 
   const handleFileSelect = async (file) => {
     if (!file) return;
     setIsUploading(true);
+    setValidationResult(null);
+    setIsChecking(false);
 
     const formData = new FormData();
     formData.append('file', file);
@@ -35,10 +50,23 @@ export default function ClothUploadModal({ onClose, onSuccess, clothType, guideA
       const result = await res.json();
       setPreviewUrl(result.url);
       setUploadedUrl(result.url);
+
+      setIsChecking(true);
+      const clothRes = await fetch(`${process.env.REACT_APP_API_URL}/cloth`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          image_url: result.url,
+          cloth_type: convertedType,
+        }),
+      });
+      const clothResult = await clothRes.json();
+      setValidationResult(clothResult);
     } catch (err) {
-      alert('이미지 업로드에 실패했습니다.');
+      alert('이미지 업로드 또는 검사에 실패했습니다.');
     } finally {
       setIsUploading(false);
+      setIsChecking(false);
     }
   };
 
@@ -47,12 +75,44 @@ export default function ClothUploadModal({ onClose, onSuccess, clothType, guideA
     onSuccess?.(clothType, uploadedUrl);
   };
 
+  const renderCheckItem = (label, key) => {
+    if (!validationResult && !isChecking) {
+      return (
+        <li key={key}>
+          <span className="check-icon default">✓</span>
+          {label}
+        </li>
+      );
+    }
+
+    if (isChecking && !validationResult) {
+      return (
+        <li key={key}>
+          <span className="check-icon spinner" />
+          {label}
+        </li>
+      );
+    }
+
+    // folded는 false일 때 성공 (접히지 않음)
+    const isValid = key;
+    const icon = isValid ? '✓' : '✕';
+    const className = isValid ? 'check-icon success' : 'check-icon fail';
+
+    return (
+      <li key={key}>
+        <span className={className}>{icon}</span>
+        {label}
+      </li>
+    );
+  };
+
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-container" onClick={(e) => e.stopPropagation()}>
         <div className="modal-slider" style={{ transform: `translateX(-${step * 100}%)` }}>
           {/* ✅ Step 0 - 가이드 */}
-          <div className="modal-page">
+          <div className={`modal-page ${step === 0 ? 'step-0' : 'step-1'}`}>
             {!guideAlreadyShown && (
               <div className="modal-step-indicator">
                 <div className={`modal-step-box ${step === 0 ? 'active' : ''}`} />
@@ -109,10 +169,10 @@ export default function ClothUploadModal({ onClose, onSuccess, clothType, guideA
             />
             <div className="modal-guideline-title">사진 검증</div>
             <ul className="modal-guideline-list">
-              <li><span className="check-icon">✓</span> 이미지 품질 확인</li>
-              <li><span className="check-icon">✓</span> 카테고리 확인</li>
-              <li><span className="check-icon">✓</span> 단일 의상 여부</li>
-              <li><span className="check-icon">✓</span> 접힌 의상 여부</li>
+              {renderCheckItem('이미지 품질 확인', 'quality')}
+              {renderCheckItem('카테고리 확인', 'type')}
+              {renderCheckItem('단일 의상 여부', 'single')}
+              {renderCheckItem('접히지않은 의상 여부', 'folded')}
             </ul>
             <div className="modal-buttons">
               <button onClick={handleUploadComplete} disabled={isUploading}>

@@ -120,25 +120,64 @@
   content: none;
 }
 
-/* ✅ 체크 아이콘 (기본) */
+/* ✅ 체크 아이콘 (기본 공통) */
 .check-icon {
   width: 20px;
   height: 20px;
-  background: linear-gradient(135deg, #7f5af0, #2cb2ff);
-  color: white;
   border-radius: 9999px;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   font-size: 0.75rem;
+  font-weight: bold;
   margin-right: 10px;
   flex-shrink: 0;
 }
 
-/* ✅ Step 1 전용 회색 배경 */
+/* ✅ Step 0 전용 체크 아이콘 → 연두 배경 + 흰색 체크 */
+.step-0 .check-icon {
+  background-color: #10b981 !important;
+  color: white !important;
+}
+
+/* ✅ Step 1 전용 회색 배경 (로딩 전 상태) */
 .step-1 .check-icon {
   background: #d1d5db;
   color: #374151;
+}
+
+/* ✅ 기본 상태 (로딩 전 fallback) */
+.check-icon.default {
+  background-color: #e5e7eb;
+  color: #374151;
+}
+
+/* ✅ 검증 성공: 연두 배경 + 흰색 체크 */
+.check-icon.success {
+  background-color: #10b981;
+  color: white;
+}
+
+/* ✅ 검증 실패: 빨강 배경 + 흰색 X */
+.check-icon.fail {
+  background-color: #ef4444;
+  color: white;
+}
+
+/* ✅ 로딩 중: 회전 스피너 */
+.check-icon.spinner {
+  border: 2px solid #e5e7eb;
+  border-top: 2px solid #6b7280;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ✅ 버튼 영역 */
@@ -184,51 +223,3 @@
   justify-content: center;
   align-items: center;
 }
-
-.check-icon {
-  width: 20px;
-  height: 20px;
-  border-radius: 9999px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 0.75rem;
-  font-weight: bold;
-  margin-right: 10px;
-  flex-shrink: 0;
-}
-
-/* 기본 상태: 회색 배경 + 검정 체크 */
-.check-icon.default {
-  background-color: #e5e7eb;
-  color: #374151;
-}
-
-/* 검증 성공: 연두 배경 + 흰색 체크 */
-.check-icon.success {
-  background-color: #10b981;
-  color: white;
-}
-
-/* 검증 실패: 빨강 배경 + 흰색 X */
-.check-icon.fail {
-  background-color: #ef4444;
-  color: white;
-}
-
-/* 로딩 중: 회전 스피너 */
-.check-icon.spinner {
-  border: 2px solid #e5e7eb;
-  border-top: 2px solid #6b7280;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
