@@ -35,8 +35,10 @@ export default function ClothUploadModal({ onClose, onSuccess, clothType, guideA
 
   const handleFileSelect = async (file) => {
     if (!file) return;
-    setIsUploading(true);
+    setPreviewUrl(null);
+    setUploadedUrl(null);
     setValidationResult(null);
+    setIsUploading(true);
     setIsChecking(false);
 
     const formData = new FormData();
@@ -84,7 +86,6 @@ export default function ClothUploadModal({ onClose, onSuccess, clothType, guideA
         </li>
       );
     }
-
     if (isChecking && !validationResult) {
       return (
         <li key={key}>
@@ -93,12 +94,9 @@ export default function ClothUploadModal({ onClose, onSuccess, clothType, guideA
         </li>
       );
     }
-
-    // folded는 false일 때 성공 (접히지 않음)
-    const isValid = validationResult?.[key];
-    const icon = isValid ? '✓' : '✕';
-    const className = isValid ? 'check-icon success' : 'check-icon fail';
-
+    const value = validationResult?.[key];
+    const icon = value ? '✓' : '✕';
+    const className = value ? 'check-icon success' : 'check-icon fail';
     return (
       <li key={key}>
         <span className={className}>{icon}</span>
@@ -106,6 +104,18 @@ export default function ClothUploadModal({ onClose, onSuccess, clothType, guideA
       </li>
     );
   };
+
+  const hasValidationFailed = validationResult && Object.values(validationResult).some(v => v === false);
+
+  const uploadButtonText = isUploading
+    ? '업로드 중...'
+    : hasValidationFailed
+      ? '그냥 진행하기'
+      : '등록 완료';
+
+  const uploadButtonClass = uploadButtonText === '등록 완료'
+    ? 'modal-button-primary'
+    : '';
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -175,8 +185,12 @@ export default function ClothUploadModal({ onClose, onSuccess, clothType, guideA
               {renderCheckItem('의상접힘 여부', 'folded')}
             </ul>
             <div className="modal-buttons">
-              <button onClick={handleUploadComplete} disabled={isUploading}>
-                {isUploading ? '업로드 중...' : '등록 완료'}
+              <button
+                onClick={handleUploadComplete}
+                disabled={isUploading || isChecking || !uploadedUrl}
+                className={uploadButtonClass}
+              >
+                {uploadButtonText}
               </button>
               <button onClick={onClose}>취소</button>
             </div>

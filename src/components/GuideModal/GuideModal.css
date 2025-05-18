@@ -210,10 +210,9 @@
 
 /* ✅ 다음 버튼 */
 .modal-buttons button:first-child {
-  background: linear-gradient(135deg, #7f5af0, #2cb2ff);
-  color: white !important;
+  background-color: #f3f4f6;
+  color: #111827;
   font-weight: 700 !important;
-  box-shadow: 0 4px 12px rgba(127, 90, 240, 0.3);
 }
 
 /* ✅ 취소 버튼 */
@@ -232,4 +231,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.modal-button-primary {
+  background: linear-gradient(135deg, #7f5af0, #2cb2ff) !important;
+  color: white !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 12px rgba(127, 90, 240, 0.3) !important;
 }

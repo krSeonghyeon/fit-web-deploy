@@ -6,14 +6,16 @@ export default function ModelUploadModal({ onClose, onSuccess, guideAlreadyShown
   const [previewUrl, setPreviewUrl] = useState(null);
   const [uploadedUrl, setUploadedUrl] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
-  const [isChecking, setIsChecking] = useState(false); // ✅ person API 요청 중 여부
+  const [isChecking, setIsChecking] = useState(false);
   const [validationResult, setValidationResult] = useState(null);
   const fileInputRef = useRef();
 
   const handleFileSelect = async (file) => {
     if (!file) return;
-    setIsUploading(true);
+    setPreviewUrl(null);
+    setUploadedUrl(null);
     setValidationResult(null);
+    setIsUploading(true);
     setIsChecking(false);
 
     const formData = new FormData();
@@ -28,9 +30,7 @@ export default function ModelUploadModal({ onClose, onSuccess, guideAlreadyShown
       setPreviewUrl(result.url);
       setUploadedUrl(result.url);
 
-      // ✅ person API 요청 시작
       setIsChecking(true);
-
       const personRes = await fetch(`${process.env.REACT_APP_API_URL}/person`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -60,7 +60,6 @@ export default function ModelUploadModal({ onClose, onSuccess, guideAlreadyShown
         </li>
       );
     }
-
     if (isChecking && !validationResult) {
       return (
         <li key={key}>
@@ -82,11 +81,21 @@ export default function ModelUploadModal({ onClose, onSuccess, guideAlreadyShown
     );
   };
 
+  const hasValidationFailed =
+    validationResult && Object.values(validationResult).some((v) => v === false);
+
+  const uploadButtonText = isUploading
+    ? '업로드 중...'
+    : hasValidationFailed
+      ? '그냥 진행하기'
+      : '등록 완료';
+
+  const uploadButtonClass = uploadButtonText === '등록 완료' ? 'modal-button-primary' : '';
+
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-container" onClick={(e) => e.stopPropagation()}>
         <div className="modal-slider" style={{ transform: `translateX(-${step * 100}%)` }}>
-          {/* Step 0 - 가이드 */}
           <div className="modal-page">
             {!guideAlreadyShown && (
               <div className="modal-step-indicator">
@@ -95,7 +104,7 @@ export default function ModelUploadModal({ onClose, onSuccess, guideAlreadyShown
               </div>
             )}
             <div className="example-box">
-                            <img
+              <img
                 src="https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/4d97c180-d716-413d-a213-59906df1a650.jpg"
                 alt="예시 사진"
               />
@@ -111,7 +120,6 @@ export default function ModelUploadModal({ onClose, onSuccess, guideAlreadyShown
             </div>
           </div>
 
-          {/* Step 1 - 업로드 */}
           <div className={`modal-page ${step === 1 ? 'step-1' : ''}`}>
             {!guideAlreadyShown && (
               <div className="modal-step-indicator">
@@ -139,7 +147,6 @@ export default function ModelUploadModal({ onClose, onSuccess, guideAlreadyShown
               style={{ display: 'none' }}
               onChange={(e) => handleFileSelect(e.target.files?.[0])}
             />
-
             <div className="modal-guideline-title">최고의 가상 피팅을 위한 사진 검증</div>
             <ul className="modal-guideline-list1">
               {renderCheckItem('사진품질 확인', 'quality')}
@@ -149,8 +156,12 @@ export default function ModelUploadModal({ onClose, onSuccess, guideAlreadyShown
             </ul>
 
             <div className="modal-buttons">
-              <button onClick={handleUploadComplete} disabled={isUploading}>
-                {isUploading ? '업로드 중...' : '등록 완료'}
+              <button
+                onClick={handleUploadComplete}
+                disabled={isUploading || isChecking || !uploadedUrl}
+                className={uploadButtonClass}
+              >
+                {uploadButtonText}
               </button>
               <button onClick={onClose}>취소</button>
             </div>
