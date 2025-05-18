@@ -167,12 +167,12 @@ export default function ClothUploadModal({ onClose, onSuccess, clothType, guideA
               style={{ display: 'none' }}
               onChange={(e) => handleFileSelect(e.target.files?.[0])}
             />
-            <div className="modal-guideline-title">사진 검증</div>
-            <ul className="modal-guideline-list">
-              {renderCheckItem('이미지 품질 확인', 'quality')}
+            <div className="modal-guideline-title">최고의 가상 피팅을 위한 사진 검증</div>
+            <ul className="modal-guideline-list1">
+              {renderCheckItem('사진품질 확인', 'quality')}
               {renderCheckItem('카테고리 확인', 'type')}
-              {renderCheckItem('단일 의상 여부', 'single')}
-              {renderCheckItem('접히지않은 의상 여부', 'folded')}
+              {renderCheckItem('단일의상 여부', 'single')}
+              {renderCheckItem('의상접힘 여부', 'folded')}
             </ul>
             <div className="modal-buttons">
               <button onClick={handleUploadComplete} disabled={isUploading}>
