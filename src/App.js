@@ -19,7 +19,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 function App() {
   const [mode, setMode] = useState('common');
   const [prevMode, setPrevMode] = useState(null);
-
   const [bodyImage, setBodyImage] = useState(null);
   const [topImage, setTopImage] = useState(null);
   const [bottomImage, setBottomImage] = useState(null);
@@ -33,14 +32,11 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [cancelRequested, setCancelRequested] = useState(false);
   const [extraOptionsOpen, setExtraOptionsOpen] = useState(false);
-
   const [upperLength, setUpperLength] = useState(0);
   const [lowerLength, setLowerLength] = useState(0);
   const [dressLength, setDressLength] = useState(0);
-
   const [uploadModalType, setUploadModalType] = useState(null);
 
-  // ✅ localStorage에서 초기값 로드
   const getInitialGuideShownMap = () => {
     try {
       const stored = localStorage.getItem('guideShownMap');
@@ -278,20 +274,25 @@ function App() {
         isOpen={!!uploadModalType}
         guideShownMap={guideShownMap}
         onClose={() => setUploadModalType(null)}
-        onSuccess={(clothType, url) => {
-          const setStateMap = {
-            top: setTopImage,
-            bottom: setBottomImage,
-            onePiece: setOnePieceImage,
-            outer: setOuterImage,
-            inner: setInnerImage,
-            longOuter: setLongOuterImage,
-            innerwear: setInnerwearImage,
-          };
-          const setter = setStateMap[clothType];
-          if (setter) setter(url);
+        onSuccess={(clothTypeOrUrl, url) => {
+          if (uploadModalType?.type === 'model') {
+            setBodyImage(clothTypeOrUrl);
+            markGuideAsSeen('model');
+          } else {
+            const setStateMap = {
+              top: setTopImage,
+              bottom: setBottomImage,
+              onePiece: setOnePieceImage,
+              outer: setOuterImage,
+              inner: setInnerImage,
+              longOuter: setLongOuterImage,
+              innerwear: setInnerwearImage,
+            };
+            const setter = setStateMap[clothTypeOrUrl];
+            if (setter) setter(url);
+            markGuideAsSeen(clothTypeOrUrl);
+          }
 
-          markGuideAsSeen(clothType || 'model'); // ✅ localStorage 저장
           setUploadModalType(null);
         }}
       />
