@@ -110,6 +110,7 @@ export default function ClothUploadModal({ onClose, onSuccess, clothType, guideA
             <div className="modal-guideline-title">사진 검증</div>
             <ul className="modal-guideline-list">
               <li><span className="check-icon">✓</span> 이미지 품질 확인</li>
+              <li><span className="check-icon">✓</span> 카테고리 확인</li>
               <li><span className="check-icon">✓</span> 단일 의상 여부</li>
               <li><span className="check-icon">✓</span> 접힌 의상 여부</li>
             </ul>

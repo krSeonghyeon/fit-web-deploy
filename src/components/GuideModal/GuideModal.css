@@ -92,7 +92,7 @@
 .modal-guideline-title {
   font-weight: 600;
   font-size: 1.05rem;
-  margin-bottom: 12px;
+  margin-bottom: 6px;
   text-align: center;
   color: #111827;
 }
@@ -184,3 +184,51 @@
   justify-content: center;
   align-items: center;
 }
+
+.check-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 9999px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: bold;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+/* 기본 상태: 회색 배경 + 검정 체크 */
+.check-icon.default {
+  background-color: #e5e7eb;
+  color: #374151;
+}
+
+/* 검증 성공: 연두 배경 + 흰색 체크 */
+.check-icon.success {
+  background-color: #10b981;
+  color: white;
+}
+
+/* 검증 실패: 빨강 배경 + 흰색 X */
+.check-icon.fail {
+  background-color: #ef4444;
+  color: white;
+}
+
+/* 로딩 중: 회전 스피너 */
+.check-icon.spinner {
+  border: 2px solid #e5e7eb;
+  border-top: 2px solid #6b7280;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
