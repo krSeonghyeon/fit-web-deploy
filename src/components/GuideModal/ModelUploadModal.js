@@ -96,7 +96,8 @@ export default function ModelUploadModal({ onClose, onSuccess, guideAlreadyShown
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-container" onClick={(e) => e.stopPropagation()}>
         <div className="modal-slider" style={{ transform: `translateX(-${step * 100}%)` }}>
-          <div className="modal-page">
+          {/* ✅ Step 0 */}
+          <div className={`modal-page ${step === 0 ? 'step-0' : 'step-1'}`}>
             {!guideAlreadyShown && (
               <div className="modal-step-indicator">
                 <div className={`modal-step-box ${step === 0 ? 'active' : ''}`} />
@@ -111,15 +112,16 @@ export default function ModelUploadModal({ onClose, onSuccess, guideAlreadyShown
             </div>
             <div className="modal-guideline-title">모델 사진 가이드라인</div>
             <ul className="modal-guideline-list">
-              <li><span className="check-icon default">✓</span> 단순한 배경일수록 좋아요</li>
-              <li><span className="check-icon default">✓</span> 자세가 정자세일수록 좋아요</li>
-              <li><span className="check-icon default">✓</span> 좋은 화질의 이미지를 사용하세요</li>
+              <li><span className="check-icon">✓</span> 단순한 배경일수록 좋아요</li>
+              <li><span className="check-icon">✓</span> 자세가 정자세일수록 좋아요</li>
+              <li><span className="check-icon">✓</span> 좋은 화질의 이미지를 사용하세요</li>
             </ul>
             <div className="modal-buttons">
               <button onClick={() => setStep(1)}>다음</button>
             </div>
           </div>
 
+          {/* ✅ Step 1 */}
           <div className={`modal-page ${step === 1 ? 'step-1' : ''}`}>
             {!guideAlreadyShown && (
               <div className="modal-step-indicator">
