@@ -152,7 +152,6 @@ export default function ModelUploadModal({ onClose, onSuccess, guideAlreadyShown
               {renderCheckItem('사진품질 확인', 'quality')}
               {renderCheckItem('사람유무 판별', 'detected')}
               {renderCheckItem('단일인물 여부', 'single')}
-              {renderCheckItem('인물자세 확인', 'upright')}
             </ul>
 
             <div className="modal-buttons">

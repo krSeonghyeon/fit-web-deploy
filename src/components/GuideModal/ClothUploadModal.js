@@ -182,7 +182,6 @@ export default function ClothUploadModal({ onClose, onSuccess, clothType, guideA
               {renderCheckItem('사진품질 확인', 'quality')}
               {renderCheckItem('카테고리 확인', 'type')}
               {renderCheckItem('단일의상 여부', 'single')}
-              {renderCheckItem('의상접힘 여부', 'folded')}
             </ul>
             <div className="modal-buttons">
               <button
