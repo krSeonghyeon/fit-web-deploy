@@ -221,6 +221,30 @@ function App() {
     </AnimatePresence>
   );
 
+  const renderResultPageWithHistorySave = () => {
+    const history = JSON.parse(localStorage.getItem('historyImages') || '[]');
+    if (resultImage && !history.includes(resultImage)) {
+      history.unshift(resultImage);
+      localStorage.setItem('historyImages', JSON.stringify(history.slice(0, 30)));
+    }
+
+    return (
+      <ResultPage
+        imageUrl={resultImage}
+        onBack={() => {
+          if (fromHistory) {
+            setResultImage(null);
+            setFromHistory(false);
+            setMode('history');
+          } else {
+            setResultImage(null);
+            setMode('common');
+          }
+        }}
+      />
+    );
+  };
+
   return (
     <div className="app-container">
       <div className="card">
@@ -248,19 +272,7 @@ function App() {
               }}
             />
           ) : mode === 'result' && resultImage ? (
-            <ResultPage
-              imageUrl={resultImage}
-              onBack={() => {
-                if (fromHistory) {
-                  setResultImage(null);
-                  setFromHistory(false);
-                  setMode('history');
-                } else {
-                  setResultImage(null);
-                  setMode('common');
-                }
-              }}
-            />
+            renderResultPageWithHistorySave()
           ) : (
             renderAnimatedContent()
           )}
