@@ -140,8 +140,8 @@ export default function ClothUploadModal({ onClose, onSuccess, clothType, guideA
             </div>
             <div className="modal-guideline-title">의상 사진 가이드라인</div>
             <ul className="modal-guideline-list">
+              <li><span className="check-icon">✓</span> 접힌 옷은 사용할 수 없어요</li>
               <li><span className="check-icon">✓</span> 사진에는 의상만 있어야 해요</li>
-              <li><span className="check-icon">✓</span> 팔이 접힌 옷은 사용할 수 없어요</li>
               <li><span className="check-icon">✓</span> 입고있는 의상은 사용할 수 없어요</li>
             </ul>
             <div className="modal-buttons">
