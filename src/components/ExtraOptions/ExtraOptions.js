@@ -17,12 +17,29 @@ const ExtraOptions = ({
   const isTopBottom = mode === 'topBottom';
   const isOnePiece = mode === 'onePiece';
 
-  const formatValue = (val) => (val > 0 ? `+${val}` : `${val}`);
+  const formatValue = (val) => {
+    switch (val) {
+      case -200: return '더짧게';
+      case -100: return '짧게';
+      case 0: return '보통';
+      case 100: return '길게';
+      case 200: return '더길게';
+      default: return `${val}`;
+    }
+  };
 
   const sliderProps = {
+    step: null,
     min: -200,
     max: 200,
-    step: 1,
+    marks: [
+      { value: -200 },
+      { value: -100 },
+      { value: 0 },
+      { value: 100 },
+      { value: 200 },
+    ],
+    valueLabelDisplay: "off",
   };
 
   return (
@@ -48,7 +65,7 @@ const ExtraOptions = ({
               {/* 상의 */}
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-sm text-gray-700 w-10 pl-3">상의</span>
-                <span className="text-xs text-gray-500 w-8 text-right">{formatValue(upperLength)}</span>
+                <span className="text-xs text-gray-500 w-10 text-center">{formatValue(upperLength)}</span>
                 <div className="flex-1 relative top-[3px]">
                   <Slider
                     value={upperLength}
@@ -61,7 +78,7 @@ const ExtraOptions = ({
               {/* 하의 */}
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-sm text-gray-700 w-10 pl-3">하의</span>
-                <span className="text-xs text-gray-500 w-8 text-right">{formatValue(lowerLength)}</span>
+                <span className="text-xs text-gray-500 w-10 text-center">{formatValue(lowerLength)}</span>
                 <div className="flex-1 relative top-[3px]">
                   <Slider
                     value={lowerLength}
@@ -76,7 +93,7 @@ const ExtraOptions = ({
           {isOnePiece && (
             <div className="flex items-center gap-2 mb-2">
               <span className="text-sm text-gray-700 w-fit pl-2 whitespace-nowrap">원피스</span>
-              <span className="text-xs text-gray-500 w-8 text-right">{formatValue(dressLength)}</span>
+              <span className="text-xs text-gray-500 w-10 text-right">{formatValue(dressLength)}</span>
               <div className="flex-1 relative top-[3px]">
                 <Slider
                   value={dressLength}
