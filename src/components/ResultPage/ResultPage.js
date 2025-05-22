@@ -31,7 +31,7 @@ const ResultPage = ({ imageUrl, onBack }) => {
       <div className="result-image-wrapper">
         <img
           src={showBefore ? beforeImageUrl : imageUrl}
-          alt={showBefore ? "before 전환" : "after 전환"}
+          alt={showBefore ? "Before" : "After"}
           className="result-image"
         />
 
@@ -49,7 +49,7 @@ const ResultPage = ({ imageUrl, onBack }) => {
             className="toggle-button"
             onClick={() => setShowBefore(!showBefore)}
           >
-            {showBefore ? "After" : "Before"}
+            {showBefore ? "After 전환" : "Before 전환"}
           </button>
         )}
       </div>
