@@ -49,7 +49,7 @@ const ResultPage = ({ imageUrl, onBack }) => {
             className="toggle-button"
             onClick={() => setShowBefore(!showBefore)}
           >
-            {showBefore ? "After 보기" : "Before 보기"}
+            {showBefore ? "After" : "Before"}
           </button>
         )}
       </div>
