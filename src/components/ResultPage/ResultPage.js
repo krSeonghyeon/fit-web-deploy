@@ -31,7 +31,7 @@ const ResultPage = ({ imageUrl, onBack }) => {
       <div className="result-image-wrapper">
         <img
           src={showBefore ? beforeImageUrl : imageUrl}
-          alt={showBefore ? "before" : "after"}
+          alt={showBefore ? "before 전환" : "after 전환"}
           className="result-image"
         />
 
