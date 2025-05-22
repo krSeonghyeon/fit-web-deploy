@@ -20,7 +20,7 @@
 .result-image {
   width: 100%;
   height: 100%;
-  object-fit: contain
+  object-fit: contain;
 }
 
 .result-buttons {
@@ -47,23 +47,9 @@
 }
 
 .download-button {
-  width: 100%;
-  padding: 0.8rem 0;
-  font-size: 1rem;
-  font-weight: 900;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-
-  background: linear-gradient(135deg, #7f5af0, #2cb2ff); /* ✅ 그라데이션 적용 */
+  background: linear-gradient(135deg, #7f5af0, #2cb2ff);
   color: white;
   text-decoration: none;
-
   letter-spacing: 0.5px;
 }
 
@@ -82,7 +68,7 @@
 }
 
 .icon-circle {
-  background-color: rgba(107, 114, 128, 0.2); /* 회색 (tailwind의 gray-500 정도) */
+  background-color: rgba(107, 114, 128, 0.2); /* 회색 */
   border-radius: 50%;
   padding: 0.4rem;
   display: flex;
@@ -93,6 +79,25 @@
 }
 
 .icon-circle:hover {
-  background-color: rgba(107, 114, 128, 0.8); /* hover 시 좀 더 진한 회색 */
+  background-color: rgba(107, 114, 128, 0.8);
 }
 
+/* ✅ Before / After 전환 버튼 */
+.toggle-button {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  z-index: 10;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-button:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}

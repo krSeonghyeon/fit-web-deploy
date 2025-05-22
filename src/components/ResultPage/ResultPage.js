@@ -1,3 +1,4 @@
+import { useState } from "react";
 import './ResultPage.css';
 import { MdDownload } from "react-icons/md";
 import { AiOutlineRollback } from "react-icons/ai";
@@ -5,11 +6,14 @@ import { IoShareSocial } from "react-icons/io5";
 import { ImEnlarge2 } from "react-icons/im";
 
 const ResultPage = ({ imageUrl, onBack }) => {
+  const [showBefore, setShowBefore] = useState(false);
+  const beforeImageUrl = localStorage.getItem('bodyImage'); // 전신 업로드 이미지
+
   const handleDownload = async () => {
     try {
       const response = await fetch(imageUrl);
       const blob = await response.blob();
-  
+
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
       link.download = 'result-image.jpg';
@@ -25,7 +29,12 @@ const ResultPage = ({ imageUrl, onBack }) => {
   return (
     <div className="result-page-container">
       <div className="result-image-wrapper">
-        <img src={imageUrl} alt="result" className="result-image" />
+        <img
+          src={showBefore ? beforeImageUrl : imageUrl}
+          alt={showBefore ? "before" : "after"}
+          className="result-image"
+        />
+
         <div className="image-icons">
           <div className="icon-circle">
             <IoShareSocial size={14} />
@@ -34,6 +43,15 @@ const ResultPage = ({ imageUrl, onBack }) => {
             <ImEnlarge2 size={13} />
           </div>
         </div>
+
+        {beforeImageUrl && (
+          <button
+            className="toggle-button"
+            onClick={() => setShowBefore(!showBefore)}
+          >
+            {showBefore ? "After 보기" : "Before 보기"}
+          </button>
+        )}
       </div>
 
       <div className="result-buttons">

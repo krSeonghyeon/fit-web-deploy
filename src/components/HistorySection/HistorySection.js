@@ -6,7 +6,7 @@ const HistorySection = ({ onSelect }) => {
 
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem('historyImages') || '[]');
-    setImages(saved);
+    setImages(saved); // ✅ 객체 배열 [{ result, before }]
   }, []);
 
   return (
@@ -15,13 +15,17 @@ const HistorySection = ({ onSelect }) => {
         <div className="history-title">기록</div>
       </div>
       <div className="history-grid">
-        {images.map((src, index) => (
+        {images.map((entry, index) => (
           <div
             key={index}
             className="history-item"
-            onClick={() => onSelect?.(src)} // ✅ 클릭 시 부모에 전달
+            onClick={() => onSelect?.(entry)} // ✅ 객체 통째로 전달
           >
-            <img src={src} alt={`history-${index}`} className="history-img" />
+            <img
+              src={entry.result}
+              alt={`history-${index}`}
+              className="history-img"
+            />
           </div>
         ))}
       </div>

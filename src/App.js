@@ -144,12 +144,24 @@ function App() {
           />
         );
       case 'history':
-        return <HistorySection onSelect={(url) => { setResultImage(url); setFromHistory(true); setMode('result'); }} />;
+        return (
+          <HistorySection
+            onSelect={(entry) => {
+              setResultImage(entry.result);
+              localStorage.setItem('bodyImage', entry.before); // ✅ Before 저장
+              setFromHistory(true);
+              setMode('result');
+            }}
+          />
+        );
       default:
         return (
           <CommonUploadSection
             imageUrl={bodyImage}
-            onUpload={setBodyImage}
+            onUpload={(url) => {
+              setBodyImage(url);
+              localStorage.setItem('bodyImage', url); // ✅ 저장
+            }}
             onRequestModelModal={() => setUploadModalType({ type: 'model' })}
           />
         );
@@ -182,7 +194,6 @@ function App() {
         {mode !== 'history' && mode !== 'result' && (
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <CategorySelector mode={mode} setMode={handleModeChange} />
-
             <ExtraOptions
               mode={mode}
               open={extraOptionsOpen}
@@ -194,7 +205,6 @@ function App() {
               dressLength={dressLength}
               setDressLength={setDressLength}
             />
-
             <ActionButton
               mode={mode}
               bodyImage={bodyImage}
@@ -223,8 +233,14 @@ function App() {
 
   const renderResultPageWithHistorySave = () => {
     const history = JSON.parse(localStorage.getItem('historyImages') || '[]');
-    if (resultImage && !history.includes(resultImage)) {
-      history.unshift(resultImage);
+    const bodyImageUrl = localStorage.getItem('bodyImage');
+
+    const newEntry = { result: resultImage, before: bodyImageUrl };
+
+    const isAlreadyInHistory = history.some(entry => entry.result === resultImage);
+
+    if (resultImage && !isAlreadyInHistory) {
+      history.unshift(newEntry);
       localStorage.setItem('historyImages', JSON.stringify(history.slice(0, 30)));
     }
 
@@ -289,6 +305,7 @@ function App() {
         onSuccess={(clothTypeOrUrl, url) => {
           if (uploadModalType?.type === 'model') {
             setBodyImage(clothTypeOrUrl);
+            localStorage.setItem('bodyImage', clothTypeOrUrl); // ✅ 반드시 저장
             markGuideAsSeen('model');
           } else {
             const setStateMap = {
@@ -304,7 +321,6 @@ function App() {
             if (setter) setter(url);
             markGuideAsSeen(clothTypeOrUrl);
           }
-
           setUploadModalType(null);
         }}
       />
