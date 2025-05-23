@@ -25,7 +25,6 @@ const LongOuterUploadSection = ({
   const innerwearRecommended = [
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/427ca040-f318-4a9b-9258-7a7820b32f3f.png',
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-06/c0b14a83-795b-4e0a-93b5-f0cc14a18075.png',
-    'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/427ca040-f318-4a9b-9258-7a7820b32f3f.png',
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-23/372cd746-78b6-4b01-bf46-01dbcdbe2d4c.jpg',
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-23/cda7c3cf-7e70-4975-b4cd-9bdabbc92c39.jpg',
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-23/90e4f467-7b99-4a84-a622-17de85f64bb7.jpg',
