@@ -24,7 +24,6 @@ const LayeredSection = ({
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-23/eb00e87b-f3e7-4241-8538-def419f2afc9.jpg',
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-23/9dcb3ba2-965b-4e3c-92a4-b7c665303f46.jpg',
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-23/3e041900-d467-4ca4-82b9-7ad957000a44.jpg',
-    'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-23/16c682f3-556e-4056-ada3-3a3b47b4821c.jpg',
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-23/c8f37af8-52f8-47d6-ac50-c213998c3046.jpg',
   ];
 
