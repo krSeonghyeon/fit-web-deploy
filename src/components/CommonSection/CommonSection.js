@@ -7,7 +7,7 @@ import RecentPreviewSlider from '../RecentPreviewSlider/RecentPreviewSlider';
 const CommonUploadSection = ({ onUpload, imageUrl, onRequestModelModal }) => {
   const recommendedImages = [
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/4d97c180-d716-413d-a213-59906df1a650.jpg',
-    'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-23/50efb808-54c6-445d-bac0-43d5daa0d672.jpg',
+    'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-23/03e4751b-4979-4fe8-a760-a8a1f0261100.jpg',
   ];
 
   const handleRecommendedSelect = (url) => {
