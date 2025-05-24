@@ -18,8 +18,9 @@ const ActionButton = ({
   extraOptionsOpen,
   upperLength,
   lowerLength,
-  dressLength, // ✅ 추가됨
-  setMode
+  dressLength,
+  setMode,
+  controllerRef // ✅ 요청 중단을 위한 참조
 }) => {
   const shouldHide = (mode === 'topBottom' || mode === 'onePiece') && extraOptionsOpen;
   if (shouldHide) return null;
@@ -35,6 +36,9 @@ const ActionButton = ({
     setCancelRequested(false);
     setLoading(true);
 
+    const controller = new AbortController(); // ✅ 요청 제어용 컨트롤러 생성
+    controllerRef.current = controller;
+
     try {
       const apiUrl = process.env.REACT_APP_API_URL;
       let response;
@@ -46,7 +50,6 @@ const ActionButton = ({
           return;
         }
 
-        // Step 1: /presum 요청
         const presumResponse = await fetch(`${apiUrl}/presum`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -56,16 +59,13 @@ const ActionButton = ({
             lower_url: bottomImage || null,
             upper_offset_bottom: upperLength,
             lower_offset_bottom: lowerLength
-          })
+          }),
+          signal: controller.signal // ✅ 요청 취소 연결
         });
 
         const presumResult = await presumResponse.json();
+        if (!presumResult.url) throw new Error('presum 요청 실패: model_url 누락');
 
-        if (!presumResult.url) {
-          throw new Error('presum 요청 실패: model_url 누락');
-        }
-
-        // Step 2: /sum 요청
         const payload = {
           model_url: presumResult.url,
           upper_url: topImage || null,
@@ -77,7 +77,8 @@ const ActionButton = ({
         response = await fetch(`${apiUrl}/sum`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
+          body: JSON.stringify(payload),
+          signal: controller.signal
         });
 
       } else if (mode === 'onePiece') {
@@ -87,15 +88,15 @@ const ActionButton = ({
           return;
         }
 
-        // ✅ dressLength 사용
         response = await fetch(`${apiUrl}/dress`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             model_url: bodyImage,
             dress_url: onePieceImage,
-            offset_bottom: dressLength // ✅ upperLength → dressLength
-          })
+            offset_bottom: dressLength
+          }),
+          signal: controller.signal
         });
 
       } else if (mode === 'longOuter') {
@@ -109,15 +110,13 @@ const ActionButton = ({
           model_url: bodyImage,
           coat_url: longOuterImage
         };
-
-        if (innerwearImage) {
-          payload.inner_url = innerwearImage;
-        }
+        if (innerwearImage) payload.inner_url = innerwearImage;
 
         response = await fetch(`${apiUrl}/coat`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
+          body: JSON.stringify(payload),
+          signal: controller.signal
         });
 
       } else if (mode === 'layered') {
@@ -132,15 +131,13 @@ const ActionButton = ({
           outer_url: outerImage,
           offset: 0
         };
-
-        if (innerImage) {
-          payload.inner_url = innerImage;
-        }
+        if (innerImage) payload.inner_url = innerImage;
 
         response = await fetch(`${apiUrl}/layered`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
+          body: JSON.stringify(payload),
+          signal: controller.signal
         });
       }
 
@@ -148,7 +145,11 @@ const ActionButton = ({
       setResultImage(result.url);
       setMode('result');
     } catch (error) {
-      console.error('❌ 피팅 요청 실패:', error);
+      if (error.name === 'AbortError') {
+        console.log('⛔ 요청이 사용자에 의해 취소되었습니다.');
+      } else {
+        console.error('❌ 피팅 요청 실패:', error);
+      }
     } finally {
       setLoading(false);
     }

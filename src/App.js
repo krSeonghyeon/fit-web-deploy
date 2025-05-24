@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import './components/AppWrapper/AppWrapper.css';
 import Header from './components/Header/Header';
 import CommonUploadSection from './components/CommonSection/CommonSection';
@@ -17,6 +17,8 @@ import GuideModal from './components/GuideModal';
 import { AnimatePresence, motion } from 'framer-motion';
 
 function App() {
+  const controllerRef = useRef(null); // ✅ AbortController 참조 저장용
+
   const [mode, setMode] = useState('common');
   const [prevMode, setPrevMode] = useState(null);
   const [bodyImage, setBodyImage] = useState(null);
@@ -148,7 +150,7 @@ function App() {
           <HistorySection
             onSelect={(entry) => {
               setResultImage(entry.result);
-              localStorage.setItem('bodyImage', entry.before); // ✅ Before 저장
+              localStorage.setItem('bodyImage', entry.before);
               setFromHistory(true);
               setMode('result');
             }}
@@ -160,7 +162,7 @@ function App() {
             imageUrl={bodyImage}
             onUpload={(url) => {
               setBodyImage(url);
-              localStorage.setItem('bodyImage', url); // ✅ 저장
+              localStorage.setItem('bodyImage', url);
             }}
             onRequestModelModal={() => setUploadModalType({ type: 'model' })}
           />
@@ -224,6 +226,7 @@ function App() {
               lowerLength={lowerLength}
               dressLength={dressLength}
               setMode={setMode}
+              controllerRef={controllerRef} // ✅ 요청 취소용
             />
           </div>
         )}
@@ -234,9 +237,7 @@ function App() {
   const renderResultPageWithHistorySave = () => {
     const history = JSON.parse(localStorage.getItem('historyImages') || '[]');
     const bodyImageUrl = localStorage.getItem('bodyImage');
-
     const newEntry = { result: resultImage, before: bodyImageUrl };
-
     const isAlreadyInHistory = history.some(entry => entry.result === resultImage);
 
     if (resultImage && !isAlreadyInHistory) {
@@ -285,6 +286,7 @@ function App() {
               onCancel={() => {
                 setCancelRequested(true);
                 setLoading(false);
+                controllerRef.current?.abort(); // ✅ 요청 취소
               }}
             />
           ) : mode === 'result' && resultImage ? (
@@ -305,7 +307,7 @@ function App() {
         onSuccess={(clothTypeOrUrl, url) => {
           if (uploadModalType?.type === 'model') {
             setBodyImage(clothTypeOrUrl);
-            localStorage.setItem('bodyImage', clothTypeOrUrl); // ✅ 반드시 저장
+            localStorage.setItem('bodyImage', clothTypeOrUrl);
             markGuideAsSeen('model');
           } else {
             const setStateMap = {
