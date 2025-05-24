@@ -8,7 +8,7 @@ const CommonUploadSection = ({ onUpload, imageUrl, onRequestModelModal }) => {
   const recommendedImages = [
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/4d97c180-d716-413d-a213-59906df1a650.jpg',
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-23/03e4751b-4979-4fe8-a760-a8a1f0261100.jpg',
-    'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-24/ebe6246b-0f24-41d9-ad50-814cfef2b8ef.jpg',
+    'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-24/c8153900-5dcc-42a3-bfe6-2cd86ebd09d8.jpg',
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-24/af6af41f-a831-4fdc-8008-e41b67c6a8e5.jpg',
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-24/e4071372-7513-4c3f-b6be-92002e559cbb.jpg',
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-24/d86a6ee0-49c0-4995-8334-816cd1f1b8d4.jpg',
