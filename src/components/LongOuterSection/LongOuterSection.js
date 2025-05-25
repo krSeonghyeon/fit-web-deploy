@@ -13,13 +13,15 @@ const LongOuterUploadSection = ({
   const longOuterRecommended = [
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-06/3668fd28-9b01-4de5-9415-933966f6bc00.png',
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-06/8ca847b6-4e9b-42d7-a79a-a91cbc996b0a.png',
-    'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-23/f4b14637-5249-44f6-ad00-37def209f500.jpg',
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-23/05475906-bb7f-4a70-a4e4-646a2a3ebd4e.jpg',
+    'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-25/8c38204f-2e4c-4ddb-a984-b1009a36ef7a.jpg',
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-23/f1ac5d8d-535f-444c-9523-7d6c0ef2f999.jpg',
+    'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-25/a704c6bb-0abc-4357-834a-29c333d2c408.jpg',
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-23/d55af87e-3fee-47a2-bf79-a133eace59f6.jpg',
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-23/8a04cfa2-1ff1-44ce-9724-1cb8ce193512.jpg',
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-23/93ad2708-5d28-45fb-8542-7f269cf115e8.jpg',
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-23/3eddbd6e-08a3-4a89-bd57-5f039d2418e7.jpg',
+
   ];
 
   const innerwearRecommended = [
