@@ -36,7 +36,7 @@ function App() {
   const [extraOptionsOpen, setExtraOptionsOpen] = useState(false);
   const [upperLength, setUpperLength] = useState(0);
   const [lowerLength, setLowerLength] = useState(0);
-  const [dressLength, setDressLength] = useState(0);
+  const [dressLength, setDressLength] = useState(100);
   const [uploadModalType, setUploadModalType] = useState(null);
 
   const getInitialGuideShownMap = () => {

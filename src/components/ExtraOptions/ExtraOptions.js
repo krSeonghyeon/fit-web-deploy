@@ -18,15 +18,24 @@ const ExtraOptions = ({
   const isOnePiece = mode === 'onePiece';
 
   const formatValue = (val) => {
+    // 원피스용 값 매핑
+    if (isOnePiece) {
+      switch (val) {
+        case 0: return '더짧게';
+        case 50: return '짧게';
+        case 100: return '보통';
+        case 150: return '길게';
+        case 200: return '더길게';
+        default: return `${val}`;
+      }
+    }
+
+    // 상하의용 값 매핑
     switch (val) {
-      case -200: // topBottom용
-      case 0: return '더짧게';
-      case -100:
-      case 50: return '짧게';
-      case 0:  // 중복되지만 위 조건보다 아래 있음
-      case 100: return '보통';
-      case 100:
-      case 150: return '길게';
+      case -200: return '더짧게';
+      case -100: return '짧게';
+      case 0: return '보통';
+      case 100: return '길게';
       case 200: return '더길게';
       default: return `${val}`;
     }
