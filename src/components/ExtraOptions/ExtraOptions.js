@@ -19,16 +19,20 @@ const ExtraOptions = ({
 
   const formatValue = (val) => {
     switch (val) {
-      case -200: return '더짧게';
-      case -100: return '짧게';
-      case 0: return '보통';
-      case 100: return '길게';
+      case -200: // topBottom용
+      case 0: return '더짧게';
+      case -100:
+      case 50: return '짧게';
+      case 0:  // 중복되지만 위 조건보다 아래 있음
+      case 100: return '보통';
+      case 100:
+      case 150: return '길게';
       case 200: return '더길게';
       default: return `${val}`;
     }
   };
 
-  const sliderProps = {
+  const defaultSliderProps = {
     step: null,
     min: -200,
     max: 200,
@@ -37,6 +41,20 @@ const ExtraOptions = ({
       { value: -100 },
       { value: 0 },
       { value: 100 },
+      { value: 200 },
+    ],
+    valueLabelDisplay: "off",
+  };
+
+  const dressSliderProps = {
+    step: null,
+    min: 0,
+    max: 200,
+    marks: [
+      { value: 0 },
+      { value: 50 },
+      { value: 100 },
+      { value: 150 },
       { value: 200 },
     ],
     valueLabelDisplay: "off",
@@ -70,7 +88,7 @@ const ExtraOptions = ({
                   <Slider
                     value={upperLength}
                     onChange={(e, val) => setUpperLength(val)}
-                    {...sliderProps}
+                    {...defaultSliderProps}
                   />
                 </div>
               </div>
@@ -83,7 +101,7 @@ const ExtraOptions = ({
                   <Slider
                     value={lowerLength}
                     onChange={(e, val) => setLowerLength(val)}
-                    {...sliderProps}
+                    {...defaultSliderProps}
                   />
                 </div>
               </div>
@@ -98,7 +116,7 @@ const ExtraOptions = ({
                 <Slider
                   value={dressLength}
                   onChange={(e, val) => setDressLength(val)}
-                  {...sliderProps}
+                  {...dressSliderProps}
                 />
               </div>
             </div>
