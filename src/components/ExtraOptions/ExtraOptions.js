@@ -32,25 +32,25 @@ const ExtraOptions = ({
 
     // 상하의용 값 매핑
     switch (val) {
-      case -200: return '더짧게';
-      case -100: return '짧게';
+      case -100: return '더짧게';
+      case -50: return '짧게';
       case 0: return '보통';
-      case 100: return '길게';
-      case 200: return '더길게';
+      case 50: return '길게';
+      case 100: return '더길게';
       default: return `${val}`;
     }
   };
 
   const defaultSliderProps = {
     step: null,
-    min: -200,
-    max: 200,
+    min: -100,
+    max: 100,
     marks: [
-      { value: -200 },
       { value: -100 },
+      { value: -50 },
       { value: 0 },
+      { value: 50 },
       { value: 100 },
-      { value: 200 },
     ],
     valueLabelDisplay: "off",
   };
