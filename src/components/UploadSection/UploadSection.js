@@ -7,11 +7,11 @@ import RecentPreviewSlider from '../RecentPreviewSlider/RecentPreviewSlider';
 const UploadSection = ({ topImage, setTopImage, bottomImage, setBottomImage }) => {
   const topRecommended = [
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-23/ad573cb5-12c6-41f1-860a-8eb645c99895.jpg',
+    'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-23/3674d20f-a4ab-4109-a272-67a33f69df9a.jpg',
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-23/2c4a279b-c804-48a8-ad69-52a75de65095.jpg',
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/86785a16-ca46-4204-a96d-76b229f50495.png',
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-23/13e6b9f0-17fb-4670-bf71-dd10d6e85a14.jpg',
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-23/2079e833-a8b2-4ed5-8ba8-fa9456cf1049.jpg',
-    'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-23/3674d20f-a4ab-4109-a272-67a33f69df9a.jpg',
   ];
 
   const bottomRecommended = [

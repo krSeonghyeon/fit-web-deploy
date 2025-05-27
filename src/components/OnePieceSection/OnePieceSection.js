@@ -5,12 +5,13 @@ import RecentPreviewSlider from '../RecentPreviewSlider/RecentPreviewSlider';
 
 const OnePieceSection = ({ onePieceImage, setOnePieceImage }) => {
   const recommendedImages = [
-    'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/21452436-7aa7-4037-9ae5-ccc85c31ab78.png',
+
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/dc13071d-86e7-4c02-8b61-5094594e3cdf.png',
-    'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-23/4d5ae1eb-8289-4275-9f57-558e554f7d5c.jpg',
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-23/2c363f80-a506-41e1-acf9-f05432e2b87f.jpg',
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-23/e6791387-a165-4447-bd23-73242ce2c2bb.jpg',
     'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-23/86aede24-ffaf-47e5-b75c-d3b0d9baad33.jpg',
+    'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-05-23/4d5ae1eb-8289-4275-9f57-558e554f7d5c.jpg',
+    'https://2dfittingroom.s3.ap-northeast-2.amazonaws.com/2025-04-01/21452436-7aa7-4037-9ae5-ccc85c31ab78.png',
   ];
 
   const handleRecommendedSelect = (url) => {
